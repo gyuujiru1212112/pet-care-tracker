@@ -20,7 +20,7 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
 
 1. **User Authentication & Authorization:**
    - **Feature:** Secure user login and account management.
-   - **Technical Approach:** Utilize Auth.js or another suitable framework.
+   - **Technical Approach:** Utilize Auth.js.
 
 2. **Pet Management (Add Pet & Pet Profile):**
    - **Feature:** Users can add up to three pets, each with a profile picture, breed, and birth date.
