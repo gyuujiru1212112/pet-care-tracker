@@ -28,7 +28,7 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
 
 3. **Daily Journey Timeline Log:**
    - **Feature:** Each pet will have a daily log categorized by tags such as grooming, activities, feeding, and vet visits.
-   - **Technical Approach:** Create a Log model in Prisma linked to each pet. Each log will include a description, date, and tags. The log data will be displayed in a timeline format using components like Card, Textarea, and Badge from shadcn/ui, styled with TailwindCSS.
+   - **Technical Approach:** Create a Log model in Prisma linked to each pet. Each log will include a description, date, and tags. The log data will be displayed in a timeline format using components like Card, Textarea, and Badge from shadcn/ui, styled with Tailwind CSS.
 
 4. **Pet Switching:**
    - **Feature:** Users can switch between pets to view and add logs for specific pets.
