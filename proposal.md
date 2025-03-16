@@ -106,9 +106,9 @@ This project meets the requirements for **User Authentication and Authorization*
 - *Expand "Edit pet", "Delete Pet" features (if time allows)*.
 
 **Week 3: Daily Log System**
-- Implement the Daily Timeline Log UI using shadcn/ui components.
-- Build API routes for log creation, editing, and deletion.
+- Implement the Daily Timeline Log UI using shadcn/ui components, including a button for loading earlier logs.
 - Implement tag categories (grooming, activities, feeding, vet).
+- Build API routes for log creation, editing, and deletion.
 
 **Weeks 4-4.5: File Handling & Optional Features**
 - Add image upload support for log entries.
