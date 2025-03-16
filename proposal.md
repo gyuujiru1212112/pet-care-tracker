@@ -23,8 +23,10 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
    - **Technical Approach:** Use Next.js API routes to manage pet creation.  Update and deletion will be expanded if time allows.
 
 3. **Daily Journey Timeline Log:**
-   - **Feature:** Each pet will have a daily log categorized by tags such as grooming, activities, feeding, and vet visits.
+   - **Feature:** Each pet will have a daily log categorized by tags such as grooming, activities, feeding, and vet visits. *(Please refer to the images attached below. This is the initial draft of the timeline log UI for this proposal, and the final UI design will be different.)*
    - **Technical Approach:** Create a Log model in Prisma linked to each pet. Each log will include a description, date, and tags. The log data will be displayed in a timeline format using components like Card, Textarea, and Badge from shadcn/ui, styled with Tailwind CSS.
+  ![Journey Timeline Preview](https://drive.google.com/file/d/1Y69ObrhRTpl3drhfBngL-zdx85O0-1FU/view?usp=sharing)
+  ![Journey Timeline Preview when adding logs](https://drive.google.com/file/d/1xnJ_QqYBNXKhD8KTKDWv1K2b-m4P2Uq-/view?usp=sharing)
 
 4. **Pet Switching:**
    - **Feature:** Users can switch between pets to view and add logs for specific pets.
@@ -89,6 +91,8 @@ model Tag {
 This project meets the requirements for **User Authentication and Authorization** and **File Handling and Processing**. It can be completed within a timeline of 4 to 5 weeks and will focus on essential functionalities such as user management, pet management, log creation, and timeline display. Additional features, such as Filtering by tags/dates, Instagram sharing, may be included as optional enhancements depending on the available time. What's more, UI design can be simplified if necessary to ensure the project is completed on time.
 
 ## Tentative Plan
+The timeline below is generally planned, but it is highly possible to get adjusted.
+
 **Week 1: Setup & User Authentication**
 - Set up the Next.js project with Tailwind CSS and shadcn/ui.
 - Configure Prisma with essential models (User, Pet, Log, Tag).
