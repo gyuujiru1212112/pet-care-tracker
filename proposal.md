@@ -86,7 +86,7 @@ model Tag {
 }
 ```
 
-This project meets the requirements for **User Authentication and Authorization** and **File Handling and Processing**. It can be completed within a timeline of 4 to 5 weeks and will focus on essential functionalities such as user account management, pet management, log creation, and timeline display. Additional features, such as Filtering by tags/dates, Instagram sharing, may be included as optional enhancements depending on the available time.
+This project meets the requirements for **User Authentication and Authorization** and **File Handling and Processing**. It can be completed within a timeline of 4 to 5 weeks and will focus on essential functionalities such as user management, pet management, log creation, and timeline display. Additional features, such as Filtering by tags/dates, Instagram sharing, may be included as optional enhancements depending on the available time. What's more, UI design can be simplified if necessary to ensure the project is completed on time.
 
 ## Tentative Plan
 **Week 1: Setup & User Authentication**
