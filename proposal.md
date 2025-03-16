@@ -88,7 +88,6 @@ model Tag {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
-
 ```
 
 This project meets the requirements for **User Authentication and Authorization** and **File Handling and Processing**. It can be completed within a timeline of 4 to 5 weeks and will focus on essential functionalities such as user account management, pet management, log creation, and timeline display. Additional features, such as Filtering by tags/dates, Instagram sharing, may be included as optional enhancements depending on the available time.
