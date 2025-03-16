@@ -23,10 +23,9 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
    - **Technical Approach:** Use Next.js API routes to manage pet creation.  Update and deletion will be expanded if time allows.
 
 3. **Daily Journey Timeline Log:**
-   - **Feature:** Each pet will have a daily log categorized by tags such as grooming, activities, feeding, and vet visits. *(Please refer to the images attached below. This is the initial draft of the timeline log UI for this proposal, and the final UI design will be different.)*
+   - **Feature:** Each pet will have a vertical timeline where users can add daily logs categorized by tags such as grooming, activities, feeding, and vet visits. *(Please refer to the attached image for an example of the vertical timeline and the UI design that adapts to this template.)*
    - **Technical Approach:** Create a Log model in Prisma linked to each pet. Each log will include a description, date, and tags. The log data will be displayed in a timeline format using components like Card, Textarea, and Badge from shadcn/ui, styled with Tailwind CSS.
-  ![Journey Timeline Preview](https://drive.google.com/file/d/1Y69ObrhRTpl3drhfBngL-zdx85O0-1FU/view?usp=sharing)
-  ![Journey Timeline Preview when adding logs](https://drive.google.com/file/d/1xnJ_QqYBNXKhD8KTKDWv1K2b-m4P2Uq-/view?usp=sharing)
+   - **A timeline example from online resources**:![A timeline template from online resource](https://venngage-wordpress.s3.amazonaws.com/uploads/2022/11/Kanye-and-Parler-Business-History-Timeline.png)
 
 4. **Pet Switching:**
    - **Feature:** Users can switch between pets to view and add logs for specific pets.
