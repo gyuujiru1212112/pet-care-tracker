@@ -24,7 +24,7 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
 
 2. **Pet Management (Add Pet & Pet Profile):**
    - **Feature:** Users can add up to three pets, each with a profile picture, breed, and birth date.
-   - **Technical Approach:** Use Next.js API routes to manage pet creation, updates, and deletions. Age will be calculated by comparing the pet's birth date to the current date or by using an existing library.
+   - **Technical Approach:** Use Next.js API routes to manage pet creation, updates, and deletions.
 
 3. **Daily Journey Timeline Log:**
    - **Feature:** Each pet will have a daily log categorized by tags such as grooming, activities, feeding, and vet visits.
@@ -40,7 +40,7 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
 
 6. **Filtering by Dates, Tags, or Both (Optional):**  
    - **Feature:** If time allows, provide users with the option to filter logs by date, tags, or both.
-   - **Technical Approach:** Utilize shadcn/ui components, such as the **Select** or **Date Picker**, to implement this feature. Connect to the server via API routes to retrieve the filtered logs.
+   - **Technical Approach:** Utilize shadcn/ui components, such as the Select or Date Picker, to implement this feature. Connect to the server via API routes to retrieve the filtered logs.
 
 7. **Integration with External Services (Optional):**
    - **Feature (Optional):** If time permits, allow users to share their daily logs as simple visual cards on Instagram.
