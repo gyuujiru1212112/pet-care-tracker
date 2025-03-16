@@ -8,7 +8,7 @@ As a cat owner and journaling enthusiast, I've struggled to find an app that com
 
 
 ## Objective and Key Features
-The project aims to create a Pet Care Tracker app for cat owners, allowing them to log daily activities and milestones like grooming, feeding, and veterinary visits in a private timeline format.
+The project aims to create a Pet Care Tracker app for cat owners, allowing them to log daily activities and milestones like grooming, feeding, and veterinary visits in a timeline format.
 
 The app will use **Next.js Full Stack** for responsiveness, along with **Tailwind CSS** and **shadcn/ui** for the user interface. **PostgreSQL** will serve as the database with **Prisma ORM**, and **DigitalOcean** will provide cloud storage for file management.
 
@@ -20,7 +20,7 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
 
 2. **Pet Management (Add Pet & Pet Profile):**
    - **Feature:** Users can add up to three pets, each with a profile picture, breed, and birth date.
-   - **Technical Approach:** Use Next.js API routes to manage pet creation, updates, and deletions.
+   - **Technical Approach:** Use Next.js API routes to manage pet creation.  Update and deletion will be expanded if time allows.
 
 3. **Daily Journey Timeline Log:**
    - **Feature:** Each pet will have a daily log categorized by tags such as grooming, activities, feeding, and vet visits.
@@ -90,21 +90,23 @@ This project meets the requirements for **User Authentication and Authorization*
 
 ## Tentative Plan
 **Week 1: Setup & User Authentication**
-- Set up the Next.js project with TailwindCSS and shadcn/ui.
-- Configure Prisma with essential models (User, Pet, Log).
+- Set up the Next.js project with Tailwind CSS and shadcn/ui.
+- Configure Prisma with essential models (User, Pet, Log, Tag).
 - Implement user authentication and authorization using Auth.js.
+- Create API routes for user registration, login, logout.
 - Set up DigitalOcean Spaces for file storage.
 - Create a basic UI layout and navigation.
 
 **Week 2: Pet Management**
+- Create API routes for pet creation, editing, and deletion.
 - Develop the "Add Pet" feature, which includes:
   - Profile creation (with picture upload).
   - Capturing breed and birth date.
-- Implement the Pet Profile view.
+- Implement the Pet Profile view and "Edit pet", "Delete Pet" features.
 - Create a user interface or button for switching between pets.
 
 **Week 3: Daily Log System**
-- Implement the Daily Timeline Log UI using shadcn/ui.
+- Implement the Daily Timeline Log UI using shadcn/ui components.
 - Build API routes for log creation, editing, and deletion.
 - Implement tag categories (grooming, activities, feeding, vet).
 
