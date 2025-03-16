@@ -98,12 +98,12 @@ This project meets the requirements for **User Authentication and Authorization*
 - Create a basic UI layout and navigation.
 
 **Week 2: Pet Management**
-- Create API routes for pet creation, editing, and deletion.
-- Develop the "Add Pet" feature, which includes:
+- Create API routes for pet creation and develop the "Add Pet" feature, which includes:
   - Profile creation (with picture upload).
   - Capturing breed and birth date.
-- Implement the Pet Profile view and "Edit pet", "Delete Pet" features.
+- Implement the Pet Profile view
 - Create a user interface or button for switching between pets.
+- *Expand "Edit pet", "Delete Pet" features (if time allows)*.
 
 **Week 3: Daily Log System**
 - Implement the Daily Timeline Log UI using shadcn/ui components.
@@ -112,8 +112,8 @@ This project meets the requirements for **User Authentication and Authorization*
 
 **Weeks 4-4.5: File Handling & Optional Features**
 - Add image upload support for log entries.
-- Implement filtering by date and tags (if time permits).
-- Design and build the Instagram-sharing card (if time permits).
+- *Implement filtering by date and tags (if time permits).*
+- *Design and build the Instagram-sharing card (if time permits).*
 - Conduct thorough testing and fix any bugs.
 
 **Weeks 4.5-5: Final Report, Demo & Polish**
