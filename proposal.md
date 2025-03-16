@@ -43,7 +43,7 @@ The app will use **Next.js Full Stack** for responsiveness, along with **Tailwin
    - **Technical Approach:** Utilize shadcn/ui components, such as the Select or Date Picker, to implement this feature. Connect to the server via API routes to retrieve the filtered logs.
 
 7. **Integration with External Services (Optional):**
-   - **Feature (Optional):** If time permits, allow users to share their daily logs as simple visual cards on Instagram.
+   - **Feature:** If time permits, allow users to share their daily logs as simple visual cards on Instagram.
    - **Technical Approach:** Integrate a tool for simple image generation or create a simple visual card from scratch, allowing sharing via the Instagram API.
 
 **Database Schema:**
