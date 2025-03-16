@@ -4,11 +4,7 @@
 * Team member: Yiduo Jing [1000308142]
 
 ## Motivation
-As a cat owner and journaling enthusiast, I've struggled to find an app that combines pet care tracking with a personal journaling experience. Most apps focus on health records, lacking a simple way to document pet's daily routines, e.g. grooming, feeding, activities, etc.
-
-I want to create a timeline-style journal to easily log pet's routines and milestones while keeping it private and uncomplicated. This project merges my passions for journaling and pet care.
-
-The target users are pet owners who enjoy journaling and want a straightforward way to record their pet's daily moments in an organized format.
+As a cat owner and journaling enthusiast, I've struggled to find an app that combines pet care tracking with a personal journaling experience. Most apps focus on health records, lacking a simple way to document pet's daily routines, e.g. grooming, feeding, activities, etc. I want to create a timeline-style journal to easily log pet's routines and milestones while keeping it private and uncomplicated. This project merges my passions for journaling and pet care. The target users are pet owners who enjoy journaling and want a straightforward way to record their pet's daily moments in an organized format.
 
 
 ## Objective and Key Features
