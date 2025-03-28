@@ -12,3 +12,42 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  pets      Pet[]
+  logs      Log[]
+}
+
+model Pet {
+  id        Int      @id @default(autoincrement())
+  name      String
+  breed     String
+  birthDate DateTime
+  profilePictureUrl String?
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  logs      Log[]
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  description String
+  date      DateTime @default(now()) // Date the log was created
+  tags      Tag[]
+  images    String[]
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  petId     Int
+  pet       Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+    id        Int      @id @default(autoincrement())
+    name      String @unique // Grooming, Feeding, etc.
+    logs      Log[] // tag related logs
+}
