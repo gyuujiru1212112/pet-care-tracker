@@ -39,7 +39,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen flex flex-col bg-accent">
       {/* Headerbar */}
-      <Headerbar title="Pets Dashboard" />
+      <Headerbar title="Dashboard" />
 
       <section>
         <div className="pt-20">

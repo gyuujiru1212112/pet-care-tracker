@@ -8,22 +8,24 @@ interface HeaderbarProps {
 
 export default function Headerbar({ title }: HeaderbarProps) {
   return (
-    <div className="fixed top-0 left-0 w-full pl-10 pr-10 z-50 bg-white">
-      <div className="flex justify-between items-center py-4">
-        {/* Home Icon Link */}
-        <div className="flex items-center gap-3">
-          <Link href="/dashboard">
-            <Home className="h-5 w-5" />
-          </Link>
-        </div>
+    <div className="fixed top-0 left-0 w-full px-4 sm:px-10 z-50 bg-white">
+      <div className="flex items-center justify-between py-3">
+        {/* Home Icon */}
+        <Link href="/dashboard" className="flex-shrink-0">
+          <Home className="h-5 w-5" />
+        </Link>
 
-        {/* Title - Centered */}
-        <h1 className="text-3xl font-semibold text-black mx-auto">{title}</h1>
+        {/* Title */}
+        <h1 className="text-lg sm:text-2xl font-semibold text-black text-center flex-1">
+          {title}
+        </h1>
 
         {/* Logout Button */}
-        <Button className="text-xl" variant="ghost">
-          Logout
-        </Button>
+        <div className="flex-shrink-0">
+          <Button className="text-sm sm:text-base px-2 sm:px-4" variant="ghost">
+            Logout
+          </Button>
+        </div>
       </div>
     </div>
   );
