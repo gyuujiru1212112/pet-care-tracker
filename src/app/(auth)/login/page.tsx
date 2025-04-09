@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -10,8 +12,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { signInWithEmail } from "@/lib/auth-actions";
 
 export default function Login() {
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  async function handleLogin(formData: FormData) {
+    const result = await signInWithEmail(formData);
+    if (result?.success) {
+      console.log("login succeed");
+      setMessage(result.message);
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 3000);
+    }
+  }
+
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       {/* { todo adjust later } */}
@@ -23,15 +42,15 @@ export default function Login() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={handleLogin}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" placeholder="Email" />
+                <Input name="email" placeholder="Email" type="email" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" placeholder="Password" />
+                <Input name="password" placeholder="Password" type="password" />
               </div>
             </div>
             <Button className="w-full place-items-center mt-6" type="submit">
@@ -39,12 +58,14 @@ export default function Login() {
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Label>Don't have an account?</Label>
-
-          <Link href="/register">
-            <Button>Sign up</Button>
-          </Link>
+        <CardFooter className="flex flex-col items-start gap-2">
+          <div className="flex w-full justify-between items-center">
+            <Label>Don't have an account?</Label>
+            <Link href="/signup">
+              <Button>Sign up</Button>
+            </Link>
+          </div>
+          {message && <p className="text-sm text-destructive">{message}</p>}
         </CardFooter>
       </Card>
     </div>

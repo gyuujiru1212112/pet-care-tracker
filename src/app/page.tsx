@@ -17,7 +17,7 @@ export default function Home() {
         <h1 className="text-5xl text-amber-600 font-semibold mb-4 text-center">
           🐾 Welcome to Pet Care Tracker 🐾
         </h1>
-        <Link href="/register">
+        <Link href="/signup">
           <Button className="mt-6 text-amber-600 bg-white border border-amber-600 hover:bg-amber-100 px-6 py-5 text-xl">
             Get Started
           </Button>

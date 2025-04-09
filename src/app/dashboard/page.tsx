@@ -1,14 +1,16 @@
 import Headerbar from "@/components/Headerbar";
 import PetProfileCard from "@/components/pets/PetProfileCard";
 import { Card, CardContent } from "@/components/ui/card";
+import { auth } from "@/lib/auth";
 import { Pet } from "@prisma/client";
 import { Plus } from "lucide-react";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
 async function getPets(): Promise<{ pets: Pet[]; error: string | null }> {
   try {
-    const res = await fetch(`${process.env.BETTER_AUTH_URL}/api/pets`);
+    const res = await fetch(`${process.env.BASE_URL}/api/pets`);
     const pets = await res.json();
 
     return { pets, error: null };
@@ -35,14 +37,13 @@ async function PetsSection() {
   );
 }
 
-export default function Dashboard() {
+export default async function Dashboard() {
   return (
     <div className="min-h-screen flex flex-col bg-accent">
       {/* Headerbar */}
       <Headerbar title="Dashboard" />
-
-      <section>
-        <div className="pt-20">
+      <section className="pt-20">
+        <div>
           <div className="w-full p-10">
             {/* Grid of pet cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

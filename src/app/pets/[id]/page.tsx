@@ -3,9 +3,10 @@
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
 import Timeline from "@/components/Timeline";
-import prisma from "@/lib/prisma";
+//import prisma from "@/lib/prisma";
 import PetIcon from "@/components/pets/PetIcon";
 import { notFound } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 
 // Selected pet timeline page
 async function getLogs(petId: string) {
