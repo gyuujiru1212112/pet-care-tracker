@@ -8,12 +8,12 @@ export async function middleware(req: NextRequest) {
 
   const isAuth = !!token;
   const isLoginPage = req.nextUrl.pathname === "/login";
-  const isDashboard = req.nextUrl.pathname === "/dashboard";
+  const isSignupPage = req.nextUrl.pathname === "/signup";
   console.log("IsAuth: ", isAuth);
 
   if (!isAuth && !isLoginPage) {
     return NextResponse.redirect(new URL("/login", req.url));
-  } else if (isAuth && !isDashboard) {
+  } else if (isAuth && (isSignupPage || isLoginPage)) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
