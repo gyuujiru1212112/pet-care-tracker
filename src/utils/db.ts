@@ -12,6 +12,7 @@ export function getUserFromDb(email: string) {
 }
 
 export async function createUser(email: string, password: string) {
+  console.log("Creating user", email, password);
   let hashedPassword = saltAndHash(password);
 
   await prisma.user.create({

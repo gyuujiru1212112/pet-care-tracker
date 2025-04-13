@@ -1,13 +1,10 @@
-export const runtime = "nodejs";
-
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
-import { signOut } from "next-auth/react";
+import { signOut } from "@/lib/auth";
 import Link from "next/link";
 
 interface HeaderbarProps {
   title: string;
-  //   username: string;
 }
 
 export default function Headerbar({ title }: HeaderbarProps) {
@@ -26,7 +23,6 @@ export default function Headerbar({ title }: HeaderbarProps) {
 
         {/* Logout Button */}
         <div className="flex-shrink-0 flex items-center">
-          {/* <p className="mr-2 text-sm sm:text-base">{username}</p> */}
           <Button
             className="text-sm sm:text-base px-2 sm:px-4"
             variant="ghost"

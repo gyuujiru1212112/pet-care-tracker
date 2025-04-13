@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { signInSchema } from "./zod";
 import { ZodError } from "zod";
-import { getUserFromDb, saltAndHash } from "@/utils/db";
+import { getUserFromDb } from "@/utils/db";
 import { compare } from "bcrypt-ts";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
@@ -14,40 +14,74 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         try {
           let user = null;
 
-          const { email, password } = await signInSchema.parseAsync(
-            credentials
-          );
+          const email = credentials.email as string;
+          if (!email) {
+            throw new Error("Email is required.");
+          }
 
-          console.log(password);
+          const password = credentials.password as string;
+          if (!password) {
+            return new Error("Password is required.");
+          }
+
           // logic to verify if the user exists
           user = await getUserFromDb(email);
+          console.log("User: ", user);
 
           if (!user) {
-            // No user found, so this is their first attempt to login
-            // Optionally, this is also the place you could do a user registration
             throw new Error("Invalid credentials.");
           }
 
-          let hashedPassword = saltAndHash(password);
-          console.log(user.password);
-          console.log(hashedPassword);
-          let passwordsMatch = await compare(hashedPassword, user.password!);
+          let passwordsMatch = await compare(password, user.password!);
           if (!passwordsMatch) throw new Error("Invalid password.");
 
-          return user as any;
+          console.log("Password is correct");
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          };
         } catch (error) {
           if (error instanceof ZodError) {
-            return null;
+            console.log("ZodError: ", error.errors);
           }
+
+          console.log("Error: ", error);
+          return null;
         }
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        console.log("token user id: ", user.id);
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      console.log("session user id: ", session.userId);
+      if (token?.id) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+    authorized: async ({ auth }) => {
+      // Logged in users are authenticated, otherwise redirect to login page
+      return !!auth;
+    },
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 });

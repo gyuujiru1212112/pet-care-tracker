@@ -2,16 +2,21 @@ import Headerbar from "@/components/Headerbar";
 import PetProfileCard from "@/components/pets/PetProfileCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import { Pet } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { Plus } from "lucide-react";
-import { headers } from "next/headers";
 import Link from "next/link";
+import { unauthorized } from "next/navigation";
 import { Suspense } from "react";
 
-async function getPets(): Promise<{ pets: Pet[]; error: string | null }> {
+async function getPets(userId: string) {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/pets`);
-    const pets = await res.json();
+    console.log("Get Pets, user id is: ", userId);
+    if (!userId) {
+      throw new Error("User id is null");
+    }
+    const pets = await prisma.pet.findMany({
+      where: { userId: userId },
+    });
 
     return { pets, error: null };
   } catch {
@@ -19,13 +24,18 @@ async function getPets(): Promise<{ pets: Pet[]; error: string | null }> {
   }
 }
 
-async function PetsSection() {
-  const { pets, error } = await getPets();
+interface PetsSectionProps {
+  userId: string;
+}
+
+async function PetsSection({ userId }: PetsSectionProps) {
+  const { pets, error } = await getPets(userId);
 
   if (error) {
     return <p className="text-sm">{error}</p>;
   }
 
+  console.log("Get Pets", pets);
   if (pets.length === 0) return <></>;
 
   return (
@@ -38,6 +48,9 @@ async function PetsSection() {
 }
 
 export default async function Dashboard() {
+  const session = await auth();
+  if (!session || !session.user || !session.user?.id) return unauthorized;
+
   return (
     <div className="min-h-screen flex flex-col bg-accent">
       {/* Headerbar */}
@@ -48,7 +61,7 @@ export default async function Dashboard() {
             {/* Grid of pet cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               <Suspense fallback={<p>Loading pets...</p>}>
-                <PetsSection />
+                <PetsSection userId={session.user.id} />
               </Suspense>
 
               {/* Add Pet Card */}
