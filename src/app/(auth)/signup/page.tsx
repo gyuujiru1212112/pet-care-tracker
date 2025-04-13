@@ -22,10 +22,9 @@ export default function Register() {
 
   async function handleSignUp(formData: FormData) {
     const result = await signUpWithEmail(formData);
+    setMessage(result.message);
 
     if (result.success) {
-      setMessage(result.message);
-
       setTimeout(() => {
         router.push("/login");
       }, 3000);
@@ -66,7 +65,7 @@ export default function Register() {
           <div className="flex w-full justify-between items-center">
             <Label>Already have an account?</Label>
             <Link href="/login">
-              <Button>Login</Button>
+              <Button>Sign in</Button>
             </Link>
           </div>
           {message && <p className="text-sm text-destructive">{message}</p>}
