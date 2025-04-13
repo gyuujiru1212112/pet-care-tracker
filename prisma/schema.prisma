@@ -31,7 +31,6 @@ model User {
 model Pet {
   id                String   @id @default(uuid())
   name              String
-  breed             String
   birthDate         DateTime
   profilePictureUrl String?
   userId            String
