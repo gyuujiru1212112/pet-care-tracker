@@ -8,9 +8,13 @@ export async function middleware(req: NextRequest) {
 
   const isAuth = !!token;
   const isLoginPage = req.nextUrl.pathname === "/login";
+  const isDashboard = req.nextUrl.pathname === "/dashboard";
+  console.log("IsAuth: ", isAuth);
 
   if (!isAuth && !isLoginPage) {
     return NextResponse.redirect(new URL("/login", req.url));
+  } else if (isAuth && !isDashboard) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();
@@ -18,5 +22,11 @@ export async function middleware(req: NextRequest) {
 
 // Optional: Restrict which routes this middleware applies to
 export const config = {
-  matcher: ["/dashboard/:path*", "/pets/:path*", "/api/pets/:path*"],
+  matcher: [
+    "/signup/:path*",
+    "/login/:path*",
+    "/dashboard/:path*",
+    "/pets/:path*",
+    "/api/pets/:path*",
+  ],
 };
