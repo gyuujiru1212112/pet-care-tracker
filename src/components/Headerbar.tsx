@@ -5,9 +5,10 @@ import Link from "next/link";
 
 interface HeaderbarProps {
   title: string;
+  email: string | null;
 }
 
-export default function Headerbar({ title }: HeaderbarProps) {
+export default function Headerbar({ title, email }: HeaderbarProps) {
   return (
     <div className="fixed top-0 left-0 w-full px-4 sm:px-10 z-50 bg-white shadow-md">
       <div className="flex items-center justify-between py-3">
@@ -23,6 +24,7 @@ export default function Headerbar({ title }: HeaderbarProps) {
 
         {/* Logout Button */}
         <div className="flex-shrink-0 flex items-center">
+          <p className="text-sm">{email}</p>
           <Button
             className="text-sm sm:text-base px-2 sm:px-4"
             variant="ghost"

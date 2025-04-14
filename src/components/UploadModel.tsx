@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -13,6 +13,13 @@ export default function UploadModal({
 }: UploadModalProps) {
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setFile(null);
+      setError(null);
+    }
+  }, [isOpen]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -55,9 +62,33 @@ export default function UploadModal({
   return (
     <div className="fixed inset-0 bg-black/40 bg-opacity-60 flex justify-center items-center">
       <div className="bg-accent p-6 rounded-lg shadow-md w-96">
-        <h2 className="text-lg font-semibold">Upload Pet Image</h2>
+        <h2 className="text-lg font-semibold">Pet Profile Image</h2>
         <form onSubmit={handleSubmit}>
-          <input type="file" onChange={handleFileChange} className="my-2" />
+          <label
+            htmlFor="file-upload"
+            className="block w-full cursor-pointer rounded-md border border-dashed border-gray-400 p-4 text-center text-sm text-gray-600 hover:bg-gray-100"
+          >
+            {file ? file.name : "Click to choose a file"}
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+
+          {/* Image Preview */}
+          {file && (
+            <div className="mt-4">
+              <p className="text-sm mb-2 text-gray-600">Preview:</p>
+              <img
+                src={URL.createObjectURL(file)}
+                alt="Preview"
+                className="w-32 h-32 object-cover rounded-full mx-auto border"
+              />
+            </div>
+          )}
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <div className="flex justify-between mt-4">
             <button
