@@ -13,15 +13,21 @@ import { DateSelector } from "@/components/DateSelector";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import UploadModal from "../UploadModel";
+import Link from "next/link";
 
 interface PetFormProps {
+  title: string;
   pet: Pet | null;
   action: (formData: FormData) => void;
 }
 
-export default function PetForm({ action, pet }: PetFormProps) {
-  const [birthDate, setBirthDate] = useState<Date>(new Date());
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+export default function PetForm({ title, action, pet }: PetFormProps) {
+  const [birthDate, setBirthDate] = useState<Date>(
+    pet?.birthDate ? new Date(pet.birthDate) : new Date()
+  );
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    pet?.profilePictureUrl ?? null
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleImageUpload = (url: string) => {
@@ -29,11 +35,11 @@ export default function PetForm({ action, pet }: PetFormProps) {
   };
 
   return (
-    <div className="flex md:h-screen md:w-screen items-center justify-center bg-cover bg-center bg-accent">
-      <Card>
+    <div className="flex min-h-screen w-full items-center justify-center bg-cover bg-center bg-accent p-4 pt-20">
+      <Card className="w-full max-w-2xl md:max-w-3xl shadow-xl p-6 md:p-10">
         <CardHeader>
-          <CardTitle>Add Pet</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl md:text-3xl">{title}</CardTitle>
+          <CardDescription className="text-base md:text-lg">
             Enter your pet's name and birth date. You can also upload an
             optional profile image.
           </CardDescription>
@@ -41,12 +47,12 @@ export default function PetForm({ action, pet }: PetFormProps) {
 
         <CardContent>
           <form action={action}>
-            <div className="grid w-full items-center gap-4">
+            <div className="grid w-full items-center gap-6">
               {/* Pet Image with Click Handler */}
               <div className="flex justify-center items-center my-4">
                 <div
                   onClick={() => setIsModalOpen(true)}
-                  className="w-32 h-32 rounded-full cursor-pointer"
+                  className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden cursor-pointer shadow-md transition-transform hover:scale-105"
                 >
                   <img
                     src={imageUrl ?? "/default-pet.png"}
@@ -58,13 +64,24 @@ export default function PetForm({ action, pet }: PetFormProps) {
 
               <input type="hidden" name="imageUrl" value={imageUrl ?? ""} />
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input name="name" placeholder="Name" type="text" required />
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="name" className="text-lg">
+                  Name
+                </Label>
+                <Input
+                  name="name"
+                  placeholder="Name"
+                  type="text"
+                  required
+                  defaultValue={pet?.name ?? ""}
+                  className="text-base px-4 py-3"
+                />
               </div>
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="birthDate">Birth Date</Label>
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="birthDate" className="text-lg">
+                  Birth Date
+                </Label>
                 <DateSelector
                   birthDate={birthDate}
                   setBirthDate={setBirthDate}
@@ -74,12 +91,19 @@ export default function PetForm({ action, pet }: PetFormProps) {
               <input
                 type="hidden"
                 name="birthDate"
-                value={birthDate.toISOString()} // yyyy-mm-dd format
+                value={birthDate.toISOString()}
               />
 
-              <Button className="w-full mt-6" type="submit">
-                Add
-              </Button>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6 w-full">
+                <Button className="w-full sm:w-36 py-3 text-base" type="submit">
+                  {title === "Add Pet" ? "Add" : "OK"}
+                </Button>
+                <Link href="/dashboard" className="w-full sm:w-36">
+                  <Button variant="outline" className="w-full py-3 text-base">
+                    Cancel
+                  </Button>
+                </Link>
+              </div>
             </div>
           </form>
 
@@ -92,7 +116,7 @@ export default function PetForm({ action, pet }: PetFormProps) {
         </CardContent>
 
         <CardFooter className="flex flex-col items-start gap-2">
-          {/* TODO: {message && <p className="text-sm text-destructive">{message}</p>} */}
+          {/* Optional message placeholder */}
         </CardFooter>
       </Card>
     </div>

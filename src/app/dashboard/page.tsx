@@ -16,6 +16,7 @@ async function getPets(userId: string) {
     }
     const pets = await prisma.pet.findMany({
       where: { userId: userId },
+      orderBy: { createdAt: "asc" },
     });
 
     return { pets, error: null };
@@ -54,7 +55,7 @@ export default async function Dashboard() {
   return (
     <div className="min-h-screen flex flex-col bg-accent">
       {/* Headerbar */}
-      <Headerbar title="Dashboard" />
+      <Headerbar title="Dashboard" email={session.user.email ?? "Guest"} />
       <section className="pt-20">
         <div>
           <div className="w-full p-10">

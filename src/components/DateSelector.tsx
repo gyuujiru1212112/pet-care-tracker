@@ -13,20 +13,23 @@ interface DateSelectorProps {
 }
 
 export function DateSelector({ birthDate, setBirthDate }: DateSelectorProps) {
+  console.log("Current birthdate: ", birthDate);
   const currentYear = new Date().getFullYear();
+
+  // todo style
   const [year, setYear] = useState(birthDate.getFullYear());
   const [month, setMonth] = useState(birthDate.getMonth() + 1); // 1-12
   const [day, setDay] = useState(birthDate.getDate());
 
+  // Update birthDate when year, month, or day changes
   useEffect(() => {
     const newDate = new Date(year, month - 1, day);
     if (!isNaN(newDate.getTime())) {
       setBirthDate(newDate);
     }
-  }, [year, month, day]);
+  }, [year, month, day, setBirthDate]); // Make sure setBirthDate is stable and doesn't change
 
   const getDaysInMonth = (y: number, m: number) => new Date(y, m, 0).getDate();
-
   const daysInMonth = getDaysInMonth(year, month);
 
   return (

@@ -1,22 +1,25 @@
 "use client";
 
 import { Pet } from "@prisma/client";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface PetProfileCardProps {
   pet: Pet;
 }
 
 export default function PetProfileCard({ pet }: PetProfileCardProps) {
+  const router = useRouter();
+
   function handleDelete(): void {
     console.log("Delete pet");
   }
 
   function handleEdit(): void {
-    console.log("Edit pet");
+    router.push(`/pets/${pet.id}/edit`);
   }
 
   return (
@@ -60,7 +63,6 @@ export default function PetProfileCard({ pet }: PetProfileCardProps) {
               className="rounded-full object-cover w-20 h-20"
             />
             <h2 className="mt-3 text-3xl font-semibold">{pet.name}</h2>
-            <p className="text-lg text-muted-foreground">{pet.breed}</p>
             {pet.birthDate && (
               <p className="text-lg text-muted-foreground">
                 Born: {new Date(pet.birthDate).toLocaleDateString()}
