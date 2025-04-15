@@ -36,14 +36,10 @@ async function PetsSection({ userId }: PetsSectionProps) {
     return <p className="text-sm">{error}</p>;
   }
 
-  console.log("Get Pets", pets);
-  if (pets.length === 0) return <></>;
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {pets.map((pet) => (
-        <PetProfileCard pet={pet} key={pet.id} />
-      ))}
+      {pets.length > 0 &&
+        pets.map((pet) => <PetProfileCard pet={pet} key={pet.id} />)}
 
       {/* Add Pet Card */}
       {/* todo height adjusting */}
