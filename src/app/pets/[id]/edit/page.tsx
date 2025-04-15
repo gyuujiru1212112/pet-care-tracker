@@ -16,6 +16,7 @@ export default function EditPet() {
   useEffect(() => {
     const idStr = id as string;
     if (idStr) {
+      // fetch pets/id
       fetch(`/api/pets/${idStr}`)
         .then((res) => res.json())
         .then((data) => {
@@ -36,12 +37,11 @@ export default function EditPet() {
       const idStr = id as string;
       if (idStr) {
         await editPet(formData, idStr);
-        // Set success message and redirect to "/" after 2 seconds
-
+        // Set success message and redirect to "/dashboard"
         setMessage("Pet edited successfully");
         setTimeout(() => {
           router.push("/dashboard");
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       setMessage("Error editing pet");
@@ -56,6 +56,7 @@ export default function EditPet() {
           <p>Loading pet data...</p>
         ) : (
           <>
+            {/* Pet form */}
             <PetForm title="Edit Pet" action={handleAction} pet={pet} />
             {message && <p className="text-sm text-destructive">{message}</p>}
           </>

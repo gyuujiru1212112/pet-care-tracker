@@ -14,11 +14,11 @@ export default function AddPet() {
     try {
       // Call createPet Server Action
       await createPet(formData);
-      // Set success message and redirect to "/" after 2 seconds
+      // Set success message and redirect to "/dashboard"
       setMessage("Pet created successfully");
       setTimeout(() => {
         router.push("/dashboard");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       // Set error message
       setMessage(error instanceof Error ? error.message : "Error creating pet");
@@ -30,6 +30,7 @@ export default function AddPet() {
       {/* Headerbar */}
       <PetProfileHeaderbar />
       <Suspense fallback="{<p>Loading add pet page...</p>}">
+        {/* Pet form */}
         <PetForm title="Add Pet" action={handleAction} pet={null} />
         {message && <p className="text-sm text-destructive">{message}</p>}
       </Suspense>

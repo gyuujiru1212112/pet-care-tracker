@@ -7,10 +7,13 @@ export async function GET(
 ) {
   /* ! await needed for warning ! */
   const { id } = await context.params;
+  const url = new URL(request.url);
+  const withLogs = url.searchParams.get("withLogs") === "true";
 
   try {
     const pet = await prisma.pet.findUnique({
       where: { id },
+      include: withLogs ? { logs: { orderBy: { date: "desc" } } } : {},
     });
 
     if (!pet) {
@@ -19,6 +22,9 @@ export async function GET(
 
     return NextResponse.json(pet);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch pet" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch pet with(out) logs" },
+      { status: 500 }
+    );
   }
 }

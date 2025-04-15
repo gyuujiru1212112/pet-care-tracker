@@ -14,8 +14,8 @@ import { signIn } from "@/lib/auth";
 
 export default function Login() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      {/* { todo adjust later } */}
+    <div className="flex h-screen w-screen items-center justify-center bg-accent">
+      {/* { todo adjust later, login credential error handling } */}
       <Card className="w-[380px]">
         <CardHeader>
           <CardTitle>Sign in</CardTitle>

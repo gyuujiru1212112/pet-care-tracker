@@ -94,7 +94,7 @@ export default function PetForm({ title, action, pet }: PetFormProps) {
                 value={birthDate.toISOString()}
               />
 
-              <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6 w-full">
+              <div className="flex flex-col sm:flex-row justify-end gap-4 mt-6 w-full">
                 <Button className="w-full sm:w-36 py-3 text-base" type="submit">
                   {title === "Add Pet" ? "Add" : "OK"}
                 </Button>
