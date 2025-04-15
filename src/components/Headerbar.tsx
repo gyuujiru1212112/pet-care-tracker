@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
-import { signOut } from "@/lib/auth";
 import Link from "next/link";
+import { SignOutButton } from "./SignOutButton";
 
 interface HeaderbarProps {
   title: string;
@@ -25,16 +24,7 @@ export default function Headerbar({ title, email }: HeaderbarProps) {
         {/* Logout Button */}
         <div className="flex-shrink-0 flex items-center">
           <p className="text-sm">{email}</p>
-          <Button
-            className="text-sm sm:text-base px-2 sm:px-4"
-            variant="ghost"
-            onClick={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            Logout
-          </Button>
+          <SignOutButton />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 "use server";
 import { createUser, getUserFromDb } from "@/utils/db";
+import { signOut } from "@/lib/auth";
 
 export async function signUpWithEmail(formData: FormData) {
   try {
@@ -34,4 +35,8 @@ export async function signUpWithEmail(formData: FormData) {
       message: `Error: "Sign-up failed"}`,
     };
   }
+}
+
+export async function serverSignOut() {
+  await signOut();
 }
