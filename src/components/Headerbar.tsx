@@ -9,7 +9,7 @@ interface HeaderbarProps {
 
 export default function Headerbar({ title, email }: HeaderbarProps) {
   return (
-    <div className="fixed top-0 left-0 w-full px-4 sm:px-10 z-50 bg-white shadow-md">
+    <div className="fixed top-0 left-0 w-full px-4 sm:px-10 z-50 bg-white shadow-md opacity-90">
       <div className="flex items-center justify-between py-3">
         {/* Home Icon */}
         <Link href="/dashboard" className="flex-shrink-0">

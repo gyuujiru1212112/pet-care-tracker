@@ -75,7 +75,9 @@ export default function AddLog({ date, petId }: AddLogProps) {
             className="min-h-[100px] resize-none"
           />
           <div className="flex justify-end">
-            {message && <p className="text-sm text-destructive">{message}</p>}
+            {message && (
+              <p className="text-md text-destructive mr-3">{message}</p>
+            )}
             <Button size="sm" onClick={handleAction} disabled={!log.trim()}>
               <Send className="mr-2 h-4 w-4" />
               Add Log

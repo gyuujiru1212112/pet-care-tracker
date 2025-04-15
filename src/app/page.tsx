@@ -8,9 +8,9 @@ export default function Home() {
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-accent p-8 md:flex-col">
         <div className="w-full overflow-hidden mb-6">
           <div className="scrolling-text">
-            <span>🚶‍♂️ Walked for 1 hour</span>
-            <span>🪮 Brushed 2 times</span>
-            <span>🍭 Played a stick toy</span>
+            <span>👣 Walked for 1 hour</span>
+            <span>✂️ Brushed 2 times</span>
+            <span>🎮 Played a stick toy</span>
           </div>
         </div>
 

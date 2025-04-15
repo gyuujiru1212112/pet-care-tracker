@@ -2,6 +2,7 @@ import {
   Cake,
   Clock,
   Footprints,
+  Gamepad2,
   Scissors,
   Stethoscope,
   Utensils,
@@ -10,7 +11,8 @@ import {
 export type Tag =
   | "feeding"
   | "grooming"
-  | "activity"
+  | "walking"
+  | "playtime"
   | "vet"
   | "anniversary"
   | "other";
@@ -29,10 +31,15 @@ export const Tags: Record<
     icon: <Scissors className="w-4 h-4" />,
     color: "bg-red-100 text-pink-800 hover:bg-red-200",
   },
-  activity: {
+  walking: {
     label: "Walking",
     icon: <Footprints className="w-4 h-4" />,
     color: "bg-green-100 text-green-800 hover:bg-green-200",
+  },
+  playtime: {
+    label: "Playtime",
+    icon: <Gamepad2 className="w-4 h-4" />,
+    color: "bg- text-lime-100 hover:bg-lime-200",
   },
   vet: {
     label: "Vet Visit",
@@ -56,7 +63,8 @@ export function isTag(value: string): value is Tag {
   return [
     "feeding",
     "grooming",
-    "activity",
+    "walking",
+    "playtime",
     "vet",
     "anniversary",
     "other",
