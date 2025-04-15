@@ -40,10 +40,21 @@ async function PetsSection({ userId }: PetsSectionProps) {
   if (pets.length === 0) return <></>;
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {pets.map((pet) => (
         <PetProfileCard pet={pet} key={pet.id} />
       ))}
+
+      {/* Add Pet Card */}
+      {/* todo height adjusting */}
+      <Link href="/pets/new">
+        <Card className="flex items-center justify-center cursor-pointer hover:bg-muted rounded-lg">
+          <CardContent className="flex flex-col items-center justify-center p-6">
+            <Plus className="w-6 h-6 text-muted-foreground" />
+            <p className="mt-2 text-sm text-muted-foreground">Add Pet</p>
+          </CardContent>
+        </Card>
+      </Link>
     </div>
   );
 }
@@ -60,23 +71,9 @@ export default async function Dashboard() {
         <div>
           <div className="w-full p-10">
             {/* Grid of pet cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <Suspense fallback={<p>Loading pets...</p>}>
-                <PetsSection userId={session.user.id} />
-              </Suspense>
-
-              {/* Add Pet Card */}
-              <Link href="/pets/new">
-                <Card className="flex items-center justify-center cursor-pointer hover:bg-muted rounded-lg">
-                  <CardContent className="flex flex-col items-center justify-center p-6">
-                    <Plus className="w-6 h-6 text-muted-foreground" />
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Add Pet
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
+            <Suspense fallback={<p>Loading pets...</p>}>
+              <PetsSection userId={session.user.id} />
+            </Suspense>
           </div>
         </div>
       </section>
