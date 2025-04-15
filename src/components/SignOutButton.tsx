@@ -1,5 +1,3 @@
-"use client";
-
 import { serverSignOut } from "@/lib/auth-actions";
 import { Button } from "@/components/ui/button";
 
