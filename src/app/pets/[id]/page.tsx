@@ -207,7 +207,7 @@ export default function PetTimelinePage() {
       <Headerbar title="Logs" email="Guest" />
 
       {!pets || !pet ? (
-        <p>Loading pet data...</p>
+        <p className="pt-20 text-3xl">Loading pet data...</p>
       ) : (
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden pt-20 px-4 sm:px-6 max-w-screen-xl mx-auto w-full">
           <div className="block md:hidden px-4 pt-4">
