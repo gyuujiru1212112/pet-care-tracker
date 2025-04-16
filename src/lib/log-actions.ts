@@ -34,7 +34,7 @@ export async function addLog(
     throw new Error("Tag is not defined");
   }
 
-  await prisma.log.create({
+  const res = await prisma.log.create({
     data: {
       description: log,
       date: date,
@@ -47,6 +47,8 @@ export async function addLog(
       },
     },
   });
+
+  return res;
 }
 
 export async function deleteLog(logId: string) {

@@ -39,7 +39,7 @@ export const Tags: Record<
   playtime: {
     label: "Playtime",
     icon: <Gamepad2 className="w-4 h-4" />,
-    color: "bg- text-lime-100 hover:bg-lime-200",
+    color: "bg-cyan-200 text-cyan-700 hover:bg-cyan-300",
   },
   vet: {
     label: "Vet Visit",

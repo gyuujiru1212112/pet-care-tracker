@@ -9,25 +9,38 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Tag, Tags } from "@/constants/tags";
-import { addLog } from "@/lib/log-actions";
 
 interface AddLogProps {
   date: Date;
   petId: string;
+  onAddLog: (
+    date: Date,
+    log: string,
+    tag: string,
+    petId: string
+  ) => Promise<void>;
 }
 
-export default function AddLog({ date, petId }: AddLogProps) {
-  const [log, setLog] = useState("");
+export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
+  const [logDesc, setLogDesc] = useState("");
   const [tag, setTag] = useState<Tag>("other");
   const [message, setMessage] = useState<string | null>(null);
 
   const handleAction = async () => {
     try {
-      await addLog(date, log, tag, petId);
+      // time matters
+      const currentDate = new Date(date);
+      const now = new Date();
+      currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
+
+      await onAddLog(currentDate, logDesc, tag, petId);
+
+      setLogDesc("");
+      setTag("other");
     } catch {
       setMessage("Failed to add log. Please try again.");
     } finally {
-      setLog("");
+      setLogDesc("");
       setTag("other");
     }
   };
@@ -70,15 +83,15 @@ export default function AddLog({ date, petId }: AddLogProps) {
           {/* Log input */}
           <Textarea
             placeholder="Capture the moments!"
-            value={log}
-            onChange={(e) => setLog(e.target.value)}
+            value={logDesc}
+            onChange={(e) => setLogDesc(e.target.value)}
             className="min-h-[100px] resize-none"
           />
           <div className="flex justify-end">
             {message && (
               <p className="text-md text-destructive mr-3">{message}</p>
             )}
-            <Button size="sm" onClick={handleAction} disabled={!log.trim()}>
+            <Button size="sm" onClick={handleAction} disabled={!logDesc.trim()}>
               <Send className="mr-2 h-4 w-4" />
               Add Log
             </Button>

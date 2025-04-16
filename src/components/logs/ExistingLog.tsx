@@ -2,25 +2,26 @@
 
 import { Tag, Tags } from "@/constants/tags";
 import { Log } from "@prisma/client";
-import { Card, CardContent, CardFooter } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
-import { deleteLog } from "@/lib/log-actions";
+import { format } from "date-fns";
 
 interface ExistingLogProps {
   log: Log;
+  onDeleteLog: (logId: string) => Promise<void>;
 }
 
-export default function ExistingLog({ log }: ExistingLogProps) {
+export default function ExistingLog({ log, onDeleteLog }: ExistingLogProps) {
   const [message, setMessage] = useState<string | null>(null);
   const { label, icon, color } = Tags[log.tag as Tag];
 
   const handleDelete = async () => {
     try {
-      await deleteLog(log.id);
+      await onDeleteLog(log.id);
     } catch (error) {
       setMessage("Failed to delete log. Please try again.");
     } finally {
@@ -30,13 +31,13 @@ export default function ExistingLog({ log }: ExistingLogProps) {
 
   return (
     <Card key={log.id} className="relative group">
-      <CardContent className="p-3">
+      <CardContent>
         <div className="flex items-start gap-2">
           <div className="mt-1 flex-shrink-0">{icon}</div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <p className="text-xs text-muted-foreground">
-                {log.date.toLocaleTimeString()}
+                {format(log.date, "HH:mm")}
               </p>
               {/* Selected Tag */}
               <Badge
@@ -50,6 +51,11 @@ export default function ExistingLog({ log }: ExistingLogProps) {
           </div>
 
           {/* Delete button */}
+          {message && (
+            <p className="text-md text-destructive mr-5 absolute top-5 right-5">
+              {message}
+            </p>
+          )}
           <Button
             variant="ghost"
             size="icon"
@@ -60,9 +66,6 @@ export default function ExistingLog({ log }: ExistingLogProps) {
           </Button>
         </div>
       </CardContent>
-      <CardFooter>
-        {message && <p className="text-sm text-destructive">{message}</p>}
-      </CardFooter>
     </Card>
   );
 }
