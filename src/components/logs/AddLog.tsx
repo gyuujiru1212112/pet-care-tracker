@@ -22,7 +22,7 @@ interface AddLogProps {
 }
 
 export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
-  const [logDesc, setLogDesc] = useState("");
+  const [logContent, setLogContent] = useState("");
   const [tag, setTag] = useState<Tag>("other");
   const [message, setMessage] = useState<string | null>(null);
 
@@ -33,14 +33,14 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
       const now = new Date();
       currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
 
-      await onAddLog(currentDate, logDesc, tag, petId);
+      await onAddLog(currentDate, logContent, tag, petId);
 
-      setLogDesc("");
+      setLogContent("");
       setTag("other");
     } catch {
       setMessage("Failed to add log. Please try again.");
     } finally {
-      setLogDesc("");
+      setLogContent("");
       setTag("other");
     }
   };
@@ -83,15 +83,19 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
           {/* Log input */}
           <Textarea
             placeholder="Capture the moments!"
-            value={logDesc}
-            onChange={(e) => setLogDesc(e.target.value)}
+            value={logContent}
+            onChange={(e) => setLogContent(e.target.value)}
             className="min-h-[100px] resize-none"
           />
           <div className="flex justify-end">
             {message && (
               <p className="text-md text-destructive mr-3">{message}</p>
             )}
-            <Button size="sm" onClick={handleAction} disabled={!logDesc.trim()}>
+            <Button
+              size="sm"
+              onClick={handleAction}
+              disabled={!logContent.trim()}
+            >
               <Send className="mr-2 h-4 w-4" />
               Add Log
             </Button>

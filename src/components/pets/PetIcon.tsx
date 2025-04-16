@@ -9,7 +9,7 @@ export default function PetIcon({ pet }: PetIconProps) {
     <div className="flex items-center justify-center w-16 h-16 bg-gray-200 rounded-full">
       <img
         src={pet.profilePictureUrl || "/default-pet.png"}
-        alt={pet.name}
+        alt="Pet Image"
         className="w-12 h-12 rounded-full"
       />
     </div>

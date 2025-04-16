@@ -30,12 +30,12 @@ export function usePetId(): string {
 }
 
 export default function PetTimelinePage() {
-  const dayToLoadEach = 3;
+  const initialDaysToLoad = 3;
   const [pet, setPet] = useState<Pet>();
   const [pets, setPets] = useState<Pet[]>();
   const [message, setMessage] = useState<string | null>(null);
   const [lastLoadedDate, setLastLoadedDate] = useState<Date>(() => {
-    return subDays(startOfDay(new Date()), dayToLoadEach);
+    return subDays(startOfDay(new Date()), initialDaysToLoad);
   });
   const petId = usePetId();
 
@@ -73,7 +73,7 @@ export default function PetTimelinePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeDay, setActiveDay] = useState<Date | null>(null);
   const [dayLogs, setDayLogs] = useState<DateLogs[]>(() => {
-    return generateDays(dayToLoadEach, new Date());
+    return generateDays(initialDaysToLoad, new Date());
   });
 
   const loadEarlierDate = async () => {
@@ -86,18 +86,18 @@ export default function PetTimelinePage() {
       console.log("Last loaded date: ", lastLoadedDate);
       const dateStr = new Date(lastLoadedDate).toISOString();
 
-      const loadDay = 2;
+      const earlierDaysToLoad = 2;
       const res = await fetch(
-        `/api/pets/${petId}/?withLogs=true&before=${dateStr}&days=${loadDay}`
+        `/api/pets/${petId}/?withLogs=true&before=${dateStr}&days=${earlierDaysToLoad}`
       );
       const newLogs = await res.json();
 
       setTimeout(() => {
         // set earlier logs
         const nextOldestDate = subDays(lastLoadedDate, 1);
-        const newDays = generateDays(loadDay, nextOldestDate);
+        const newDays = generateDays(earlierDaysToLoad, nextOldestDate);
         setDayLogs((prevDays) => [...newDays, ...prevDays]);
-        setLastLoadedDate(subDays(nextOldestDate, loadDay - 1));
+        setLastLoadedDate(subDays(nextOldestDate, earlierDaysToLoad - 1));
 
         if (newLogs.logs && newLogs.logs.length > 0) {
           const groupedByDate = groupLogByDate(newLogs.logs);
@@ -134,7 +134,7 @@ export default function PetTimelinePage() {
         setMessage("Error fetching pets");
       });
     fetch(
-      `/api/pets/${petId}/?withLogs=true&before=${today}&days=${dayToLoadEach}`
+      `/api/pets/${petId}/?withLogs=true&before=${today}&days=${initialDaysToLoad}`
     )
       .then((res) => res.json())
       .then((data) => {
