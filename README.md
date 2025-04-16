@@ -1,6 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pet Care Tracker
 
-## Getting Started
+* Team member: Yiduo Jing [1000308142], yiduo.jing@mail.utoronto.ca
+
+
+### Motivation:
+What motivated your team to spend time on this project? Describe the problem you’re solving and its significance.
+### Objectives:
+What are the objectives of this project? Explain what you aimed to achieve through this implementation.
+### Technical Stack:
+What technologies were used in the project? Include the chosen approach (Next.js Full-Stack or Express.js Backend), database solution, and other key technologies.
+### Features:
+What are the main features offered by your application? Describe how they fulfill the course requirements and achieve your project objectives.
+### User Guide:
+How does a user interact with your application? Provide clear instructions for using each main feature, supported with screenshots where appropriate.
+### Development Guide:
+What are the steps to set up the development environment? Include detailed instructions for:
+- Environment setup and configuration
+- Database initialization
+- Cloud storage configuration
+- Local development and testing
+### Deployment Information (if applicable):
+Include the live URL of your application and relevant deployment platform details.
+### Individual Contributions:
+This is a solo project. I did everything.
+### Lessons Learned and Concluding Remarks:
+Share insights gained during the development process and any final thoughts about the project experience, if any.
+
 
 First, run the development server:
 
