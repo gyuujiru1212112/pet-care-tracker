@@ -52,13 +52,16 @@ export default function PetForm({ title, action, pet }: PetFormProps) {
               <div className="flex justify-center items-center my-4">
                 <div
                   onClick={() => setIsModalOpen(true)}
-                  className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden cursor-pointer shadow-md transition-transform hover:scale-105"
+                  className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden cursor-pointer shadow-md transition-transform hover:scale-105"
                 >
                   <img
                     src={imageUrl ?? "/default-pet.png"}
                     alt="Pet Image"
                     className="w-full h-full object-cover rounded-full"
                   />
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                    Click to upload
+                  </div>
                 </div>
               </div>
 

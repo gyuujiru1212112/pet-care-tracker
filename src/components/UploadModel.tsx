@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 
 interface UploadModalProps {
@@ -89,7 +90,7 @@ export default function UploadModal({
               />
             </div>
           )}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-destructive text-sm">{error}</p>}
           <div className="flex justify-between mt-4">
             <button
               type="button"
