@@ -1,3 +1,4 @@
+// middleware.ts
 import { auth } from "@/lib/auth";
 
 export default auth((req) => {
@@ -11,4 +12,5 @@ export default auth((req) => {
 // Optionally, don't invoke Middleware on some paths
 export const config = {
   matcher: ["/dashboard/:path*", "/pets/:path*"],
+  runtime: "nodejs", // Force Node.js runtime instead of Edge
 };
