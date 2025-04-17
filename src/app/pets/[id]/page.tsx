@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import ExistingLog from "@/components/logs/ExistingLog";
 import { addLog, deleteLog } from "@/lib/log-actions";
+import LoadingMessage from "@/components/LoadingMessage";
 
 type DateLogs = {
   date: Date;
@@ -153,7 +154,7 @@ export default function PetTimelinePage() {
       });
   }, [petId]);
 
-  const handleAdd = async (day: Date, log: string, tag: string) => {
+  const handleAddLog = async (day: Date, log: string, tag: string) => {
     try {
       const newLog = await addLog(day, log, tag, petId);
 
@@ -179,7 +180,7 @@ export default function PetTimelinePage() {
     }
   };
 
-  const handleDelete = async (day: Date, logId: string) => {
+  const handleDeleteLog = async (day: Date, logId: string) => {
     try {
       await deleteLog(logId);
       setDayLogs((prev) =>
@@ -202,14 +203,12 @@ export default function PetTimelinePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[url('/timeline.jpg')] bg-cover bg-center bg-no-repeat">
-      {/* todo session  */}
-      <Headerbar title="Logs" email="Guest" />
+      <Headerbar title="Logs" />
 
       {!pets || !pet ? (
-        <div className="flex justify-center items-center pt-20">
-          <p className="text-3xl">Loading pet data...</p>
-        </div>
+        <LoadingMessage message="Loading pet data..." />
       ) : (
+        // Pet dropdown for small screen
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden pt-20 px-4 sm:px-6 max-w-screen-xl mx-auto w-full">
           <div className="block md:hidden px-4 pt-4">
             <PetDropDown pets={pets} selectedPet={pet} />
@@ -303,7 +302,7 @@ export default function PetTimelinePage() {
                                     log={log}
                                     key={log.id}
                                     onDeleteLog={() =>
-                                      handleDelete(day.date, log.id)
+                                      handleDeleteLog(day.date, log.id)
                                     }
                                   />
                                 ))}
@@ -316,7 +315,7 @@ export default function PetTimelinePage() {
                                   date={day.date}
                                   petId={pet?.id || ""}
                                   onAddLog={(date, log, tag) =>
-                                    handleAdd(date, log, tag)
+                                    handleAddLog(date, log, tag)
                                   }
                                 />
                               </div>

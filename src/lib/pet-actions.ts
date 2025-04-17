@@ -59,3 +59,28 @@ export async function editPet(formData: FormData, petId: string) {
     },
   });
 }
+
+export async function getPets(userId: string) {
+  try {
+    console.log("Get Pets, user id is: ", userId);
+    if (!userId) {
+      throw new Error("User id is null");
+    }
+    const pets = await prisma.pet.findMany({
+      where: { userId: userId },
+      orderBy: { createdAt: "asc" },
+    });
+
+    return { pets, error: null };
+  } catch {
+    return { pets: [], error: "Error loading pets" };
+  }
+}
+
+export async function deletePet(petId: string) {
+  await prisma.pet.delete({
+    where: {
+      id: petId,
+    },
+  });
+}

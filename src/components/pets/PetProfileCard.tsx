@@ -6,16 +6,31 @@ import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
+import { useState } from "react";
 
 interface PetProfileCardProps {
   pet: Pet;
+  onDeletePet: (id: string) => Promise<void>;
 }
 
-export default function PetProfileCard({ pet }: PetProfileCardProps) {
+export default function PetProfileCard({
+  pet,
+  onDeletePet,
+}: PetProfileCardProps) {
   const router = useRouter();
+  const [message, setMessage] = useState("");
 
   function handleDelete(): void {
-    console.log("Delete pet");
+    try {
+      console.log("Delete pet");
+      setMessage("");
+      onDeletePet(pet.id);
+    } catch {
+      setMessage("Error deleting pet");
+    } finally {
+      setMessage("");
+    }
   }
 
   function handleEdit(): void {
@@ -27,6 +42,9 @@ export default function PetProfileCard({ pet }: PetProfileCardProps) {
       {/* Edit and Delete buttons */}
       <div className="absolute right-2 top-2 z-50">
         <div className="flex gap-2">
+          {message && (
+            <p className="text-destructive text-lg bg-background">{message}</p>
+          )}
           <Button
             variant="outline"
             size="icon"
@@ -65,7 +83,7 @@ export default function PetProfileCard({ pet }: PetProfileCardProps) {
             <h2 className="mt-3 text-3xl font-semibold">{pet.name}</h2>
             {pet.birthDate && (
               <p className="text-lg text-muted-foreground">
-                Born: {new Date(pet.birthDate).toLocaleDateString()}
+                Born: {format(pet.birthDate, "yyyy-MM-dd")}
               </p>
             )}
             <div className="mt-4 flex items-center justify-center">
