@@ -50,7 +50,7 @@ export default function PetTimelinePage() {
       grouped.get(dateKey)!.push(log);
     }
 
-    const groupedByDate: DateLogs[] = dayLogs.map((dayLog) => {
+    const groupedLogsByDate: DateLogs[] = dayLogs.map((dayLog) => {
       const dateKey = format(dayLog.date, "yyyy-MM-dd");
       return {
         date: dayLog.date,
@@ -58,11 +58,10 @@ export default function PetTimelinePage() {
       };
     });
 
-    console.log("Grouped by date (with empty fallback):", groupedByDate);
-    return groupedByDate;
+    return groupedLogsByDate;
   }
 
-  const generateDays = (count: number, startDate: Date): DateLogs[] => {
+  const initializeDays = (count: number, startDate: Date): DateLogs[] => {
     const start = startOfDay(startDate);
     return Array.from({ length: count }).map((_, i) => ({
       date: subDays(start, i),
@@ -73,7 +72,7 @@ export default function PetTimelinePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeDay, setActiveDay] = useState<Date | null>(null);
   const [dayLogs, setDayLogs] = useState<DateLogs[]>(() => {
-    return generateDays(initialDaysToLoad, new Date());
+    return initializeDays(initialDaysToLoad, new Date());
   });
 
   const loadEarlierDate = async () => {
@@ -95,7 +94,7 @@ export default function PetTimelinePage() {
       setTimeout(() => {
         // set earlier logs
         const nextOldestDate = subDays(lastLoadedDate, 1);
-        const newDays = generateDays(earlierDaysToLoad, nextOldestDate);
+        const newDays = initializeDays(earlierDaysToLoad, nextOldestDate);
         setDayLogs((prevDays) => [...newDays, ...prevDays]);
         setLastLoadedDate(subDays(nextOldestDate, earlierDaysToLoad - 1));
 
@@ -174,7 +173,7 @@ export default function PetTimelinePage() {
       }
     } catch {
       setMessage("Failed to add log. Please try again.");
-      // todo fetch
+      // todo optional fetch?
     } finally {
       setMessage("");
     }
@@ -195,7 +194,7 @@ export default function PetTimelinePage() {
       );
     } catch {
       setMessage("Failed to delete log. Please try again.");
-      // todo fetch
+      // todo optional fetch?
     } finally {
       setMessage("");
     }
@@ -207,11 +206,13 @@ export default function PetTimelinePage() {
       <Headerbar title="Logs" email="Guest" />
 
       {!pets || !pet ? (
-        <p className="pt-20 text-3xl">Loading pet data...</p>
+        <div className="flex justify-center items-center pt-20">
+          <p className="text-3xl">Loading pet data...</p>
+        </div>
       ) : (
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden pt-20 px-4 sm:px-6 max-w-screen-xl mx-auto w-full">
           <div className="block md:hidden px-4 pt-4">
-            <PetDropDown />
+            <PetDropDown pets={pets} selectedPet={pet} />
           </div>
 
           {/* Sidebar - Pet Selection */}

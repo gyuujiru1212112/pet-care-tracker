@@ -53,7 +53,9 @@ export default function EditPet() {
       <PetProfileHeaderbar />
       <Suspense fallback="{<p>Loading edit pet page...</p>}">
         {!pet ? (
-          <p className="pt-20 text-3xl">Loading pet data...</p>
+          <div className="flex justify-center items-center pt-20">
+            <p className="text-3xl">Loading pet data...</p>
+          </div>
         ) : (
           <>
             {/* Pet form */}
