@@ -27,4 +27,5 @@ export default auth((req) => {
 
 export const config = {
   matcher: ["/login", "/signup", "/dashboard", "/pets/:path*"],
+  runtime: "nodejs",
 };
