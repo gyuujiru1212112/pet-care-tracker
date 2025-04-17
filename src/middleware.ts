@@ -30,5 +30,5 @@ export const config = {
     "/signup/:path*",
     "/login/:path*",
   ],
-  runtime: "nodejs", // Force Node.js runtime instead of Edge
+  runtime: "nodejs",
 };
