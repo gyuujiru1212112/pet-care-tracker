@@ -6,7 +6,7 @@ interface PetIconProps {
 
 export default function PetIcon({ pet }: PetIconProps) {
   return (
-    <div className="flex items-center justify-center w-16 h-16 bg-gray-200 rounded-full">
+    <div className="flex items-center justify-center w-16 h-16 rounded-full">
       <img
         src={pet.profilePictureUrl || "/default-pet.png"}
         alt="Pet Image"
