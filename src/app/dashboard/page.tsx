@@ -1,4 +1,5 @@
 import Headerbar from "@/components/Headerbar";
+import LoadingMessage from "@/components/LoadingMessage";
 import PetList from "@/components/pets/PetList";
 import { auth } from "@/lib/auth";
 import { unauthorized } from "next/navigation";
@@ -16,7 +17,7 @@ export default async function Dashboard() {
         <div>
           <div className="w-full p-10">
             {/* Grid of pet cards */}
-            <Suspense fallback={<p>Loading pets...</p>}>
+            <Suspense fallback={<LoadingMessage message="Loading pets" />}>
               <PetList userId={session.user.id} />
             </Suspense>
           </div>

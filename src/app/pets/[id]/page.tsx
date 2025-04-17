@@ -211,12 +211,18 @@ export default function PetTimelinePage() {
         // Pet dropdown for small screen
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden pt-20 px-4 sm:px-6 max-w-screen-xl mx-auto w-full">
           <div className="block md:hidden px-4 pt-4">
-            <PetDropDown pets={pets} selectedPet={pet} />
+            <Suspense
+              fallback={<LoadingMessage message="Loading pet info..." />}
+            >
+              <PetDropDown pets={pets} selectedPet={pet} />
+            </Suspense>
           </div>
 
           {/* Sidebar - Pet Selection */}
           <aside className="hidden md:block w-full md:w-64 md:h-[calc(100vh-80px)] overflow-y-auto bg-white opacity-90 border-r rounded-lg mb-4 md:mb-0 md:mr-4">
-            <Suspense fallback={<p>Loading pet selection...</p>}>
+            <Suspense
+              fallback={<LoadingMessage message="Loading pet info..." />}
+            >
               <PetSelection pets={pets || []} selectedPet={pet!} />
             </Suspense>
           </aside>
@@ -244,7 +250,9 @@ export default function PetTimelinePage() {
             </div>
 
             {/* Timeline */}
-            <Suspense fallback={<p>Loading timeline...</p>}>
+            <Suspense
+              fallback={<LoadingMessage message="Loading timeline..." />}
+            >
               <section className="p-4 pb-8">
                 {sortedDays.map((day, index) => {
                   const isActive =

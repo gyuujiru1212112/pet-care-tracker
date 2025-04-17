@@ -3,9 +3,5 @@ interface LoadingMessageProps {
 }
 
 export default function LoadingMessage({ message }: LoadingMessageProps) {
-  return (
-    <div className="flex justify-center items-center pt-20">
-      <p className="text-2xl text-gray">{message}</p>
-    </div>
-  );
+  return <p className="text-center text-sm text-gray-500 pt-20">{message}</p>;
 }

@@ -1,4 +1,5 @@
 "use client";
+import LoadingMessage from "@/components/LoadingMessage";
 // add pet page
 import PetForm from "@/components/pets/PetForm";
 import PetProfileHeaderbar from "@/components/pets/PetProfileHeadBar";
@@ -29,7 +30,7 @@ export default function AddPet() {
     <div className="min-h-screen flex flex-col bg-accent">
       {/* Headerbar */}
       <PetProfileHeaderbar />
-      <Suspense fallback="{<p>Loading add pet page...</p>}">
+      <Suspense fallback={<LoadingMessage message="Loading add pet page..." />}>
         {/* Pet form */}
         <PetForm title="Add Pet" action={handleAction} pet={null} />
         {message && <p className="text-sm text-destructive">{message}</p>}

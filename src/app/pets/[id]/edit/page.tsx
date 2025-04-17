@@ -1,4 +1,5 @@
 "use client";
+import LoadingMessage from "@/components/LoadingMessage";
 // edit pet page
 
 import PetForm from "@/components/pets/PetForm";
@@ -51,7 +52,7 @@ export default function EditPet() {
   return (
     <div className="min-h-screen flex flex-col bg-accent">
       <PetProfileHeaderbar />
-      <Suspense fallback="{<p>Loading edit pet page...</p>}">
+      <Suspense fallback={<LoadingMessage message="Loading edit page..." />}>
         {!pet ? (
           <div className="flex justify-center items-center pt-20">
             <p className="text-3xl">Loading pet data...</p>
