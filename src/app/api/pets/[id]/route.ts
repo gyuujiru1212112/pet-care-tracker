@@ -1,13 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { endOfDay, startOfDay, subDays } from "date-fns";
 
 export async function GET(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  /* ! await needed for warning ! */
-  const { id } = await context.params;
+  const { id } = await params;
   const url = new URL(request.url);
   const withLogs = url.searchParams.get("withLogs") === "true";
 
@@ -59,7 +58,7 @@ export async function GET(
     }
 
     return NextResponse.json(pet);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch pet with(out) logs" },
       { status: 500 }

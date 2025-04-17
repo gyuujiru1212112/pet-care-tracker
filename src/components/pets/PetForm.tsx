@@ -40,7 +40,7 @@ export default function PetForm({ title, action, pet }: PetFormProps) {
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl">{title}</CardTitle>
           <CardDescription className="text-base md:text-lg">
-            Enter your pet's name and birth date. You can also upload an
+            Enter your pet&apos;s name and birth date. You can also upload an
             optional profile image.
           </CardDescription>
         </CardHeader>

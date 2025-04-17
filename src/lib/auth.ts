@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import { signInSchema } from "./zod";
-import { ZodError } from "zod";
 import { getUserFromDb } from "@/utils/db";
 import { compare } from "bcrypt-ts";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -39,7 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error("Invalid credentials.");
           }
 
-          let passwordsMatch = await compare(password, user.password!);
+          const passwordsMatch = await compare(password, user.password!);
           if (!passwordsMatch) throw new Error("Invalid password.");
 
           console.log("Password is correct");
@@ -50,10 +48,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: user.name,
           };
         } catch (error) {
-          if (error instanceof ZodError) {
-            console.log("ZodError: ", error.errors);
-          }
-
           console.log("Error: ", error);
           return null;
         }
@@ -68,6 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         console.log("token user id: ", user.id);
         token.id = user.id;
+        token.email = user.email;
       }
       return token;
     },

@@ -56,7 +56,7 @@ export default function Login() {
         </CardContent>
         <CardFooter className="flex flex-col items-start gap-2">
           <div className="flex w-full justify-between items-center">
-            <Label>Don't have an account?</Label>
+            <Label>Don&apos;t have an account?</Label>
             <Link href="/signup">
               <Button variant="secondary">Sign up</Button>
             </Link>

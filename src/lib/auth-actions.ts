@@ -10,7 +10,7 @@ export async function signUpWithEmail(formData: FormData) {
     const password = formData.get("password") as string;
     if (!password) throw new Error("Password is required");
 
-    let user = await getUserFromDb(email);
+    const user = await getUserFromDb(email);
 
     if (user) {
       throw new Error("User already exists");

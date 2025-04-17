@@ -42,7 +42,7 @@ export default function EditPet() {
           router.push("/dashboard");
         }, 1000);
       }
-    } catch (error) {
+    } catch {
       toast.error("Error editing pet");
     }
   };

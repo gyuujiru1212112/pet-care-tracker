@@ -28,7 +28,7 @@ export default function ExistingLog({
     try {
       onEditLog(log.id);
       setMessage("");
-    } catch (error) {
+    } catch {
       setMessage("Failed to edit log. Please try again.");
     }
   };
@@ -36,7 +36,7 @@ export default function ExistingLog({
     try {
       await onDeleteLog(log.id);
       setMessage("");
-    } catch (error) {
+    } catch {
       setMessage("Failed to delete log. Please try again.");
     }
   };

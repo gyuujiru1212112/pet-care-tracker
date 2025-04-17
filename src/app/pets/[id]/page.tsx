@@ -22,7 +22,7 @@ type DateLogs = {
   logs: Log[];
 };
 
-export function usePetId(): string {
+function usePetId(): string {
   const { id } = useParams();
 
   if (!id || typeof id !== "string") {
