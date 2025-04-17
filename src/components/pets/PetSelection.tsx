@@ -13,7 +13,7 @@ interface PetsSectionProps {
 export default function PetSelection({ pets, selectedPet }: PetsSectionProps) {
   const router = useRouter();
 
-  function handleSelection(petId: string): void {
+  function handleSelection(petId: string) {
     console.log("Push to pet", petId);
     router.push(`/pets/${petId}`);
   }
