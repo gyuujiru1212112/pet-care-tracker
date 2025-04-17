@@ -7,14 +7,25 @@ export default auth((req) => {
 
   // req.auth
   if (!req.auth && req.nextUrl.pathname !== "/login") {
-    console.log("Enter");
     const newUrl = new URL("/login", req.nextUrl.origin);
+    return Response.redirect(newUrl);
+  }
+
+  if (
+    req.auth &&
+    (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/signup")
+  ) {
+    const newUrl = new URL("/dashboard", req.nextUrl.origin);
     return Response.redirect(newUrl);
   }
 });
 
-// Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ["/dashboard/:path*", "/pets/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/pets/:path*",
+    "/signup/:path*",
+    "/login/:path*",
+  ],
   runtime: "nodejs", // Force Node.js runtime instead of Edge
 };
