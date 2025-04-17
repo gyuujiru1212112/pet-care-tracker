@@ -1,14 +1,15 @@
 // middleware.ts
 import { auth } from "@/lib/auth";
+import { NextResponse } from "next/server";
 
 export default auth((req) => {
-  console.log("Auth check: ", req.auth); // Log the auth object to see if it is being set correctly
-  console.log("Request Pathname: ", req.nextUrl.pathname); // Log the requested pathname
+  console.log("Auth check: ", req.auth);
+  console.log("Request Pathname: ", req.nextUrl.pathname);
 
   // req.auth
   if (!req.auth && req.nextUrl.pathname !== "/login") {
     const newUrl = new URL("/login", req.nextUrl.origin);
-    return Response.redirect(newUrl);
+    return NextResponse.redirect(newUrl);
   }
 
   if (
@@ -16,8 +17,10 @@ export default auth((req) => {
     (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/signup")
   ) {
     const newUrl = new URL("/dashboard", req.nextUrl.origin);
-    return Response.redirect(newUrl);
+    return NextResponse.redirect(newUrl);
   }
+
+  return NextResponse.next();
 });
 
 export const config = {
