@@ -7,7 +7,10 @@ export default auth((req) => {
   console.log("Request Pathname: ", req.nextUrl.pathname);
 
   // req.auth
-  if (!req.auth && req.nextUrl.pathname !== "/login") {
+  if (
+    !req.auth &&
+    (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/signup")
+  ) {
     const newUrl = new URL("/login", req.nextUrl.origin);
     return NextResponse.redirect(newUrl);
   }
