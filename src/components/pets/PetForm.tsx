@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { DateSelector } from "@/components/DateSelector";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import UploadModal from "../UploadModel";
+import UploadModal from "@/components/UploadModel";
 import Link from "next/link";
 
 interface PetFormProps {

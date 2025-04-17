@@ -9,34 +9,44 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Tag, Tags } from "@/constants/tags";
+import { Log } from "@prisma/client";
 
-interface AddLogProps {
-  date: Date;
-  petId: string;
-  onAddLog: (
+interface EditLogProps {
+  log: Log;
+  onEditLog: (
     date: Date,
+    logId: string,
     log: string,
     tag: string,
     petId: string
   ) => Promise<void>;
+  onCloseEdit: () => void;
 }
 
-export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
-  const [logContent, setLogContent] = useState("");
-  const [tag, setTag] = useState<Tag>("other");
+export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
+  const [logContent, setLogContent] = useState(log.description);
+  const [tag, setTag] = useState<Tag>(log.tag as Tag);
   const [message, setMessage] = useState("");
+
+  const handleClose = () => {
+    try {
+      onCloseEdit();
+    } catch {
+      setMessage("Failed to close the edit box. Please refresh the page.");
+    }
+  };
 
   const handleAction = async () => {
     try {
       // time matters
-      const currentDate = new Date(date);
+      const currentDate = new Date(log.date);
       const now = new Date();
       currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
 
-      await onAddLog(currentDate, logContent, tag, petId);
+      await onEditLog(currentDate, log.id, logContent, tag, log.petId);
       setMessage("");
     } catch {
-      setMessage("Failed to add. Please try again.");
+      setMessage("Failed to edit. Please try again.");
     } finally {
       setLogContent("");
       setTag("other");
@@ -96,7 +106,10 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
               disabled={!logContent.trim()}
             >
               <Send className="mr-2 h-4 w-4" />
-              Add Log
+              Edit
+            </Button>
+            <Button className="ml-5 text-base" size="sm" onClick={handleClose}>
+              Close
             </Button>
           </div>
         </div>

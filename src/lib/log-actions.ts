@@ -51,6 +51,47 @@ export async function addLog(
   return res;
 }
 
+export async function editLog(
+  date: Date,
+  logId: string,
+  log: string,
+  tag: string,
+  petId: string
+) {
+  const userId = await processLog();
+
+  if (!log || log.trim() === "") {
+    throw new Error("Log is missing");
+  }
+
+  if (!tag) {
+    throw new Error("Tag is missing");
+  }
+
+  if (!isTag(tag)) {
+    throw new Error("Tag is not defined");
+  }
+
+  const res = await prisma.log.update({
+    where: {
+      id: logId,
+    },
+    data: {
+      description: log,
+      date: date,
+      tag: tag,
+      pet: {
+        connect: { id: petId },
+      },
+      user: {
+        connect: { id: userId },
+      },
+    },
+  });
+
+  return res;
+}
+
 export async function deleteLog(logId: string) {
   await processLog();
 

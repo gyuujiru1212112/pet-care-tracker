@@ -16,7 +16,6 @@ interface PetListProps {
 export default function PetList({ userId }: PetListProps) {
   const [pets, setPets] = useState<Pet[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState("");
 
   async function fetchPets() {
     const res = await getPets(userId);
@@ -29,14 +28,12 @@ export default function PetList({ userId }: PetListProps) {
 
   const handleDelete = async (petId: string) => {
     try {
-      const res = await deletePet(petId);
-      //if (res.ok) {
+      await deletePet(petId);
       setPets(
         pets.filter((p) => {
           return p.id !== petId;
         })
       );
-      //}
     } catch {
       console.log("Error deleting pet");
     }

@@ -1,6 +1,6 @@
 import { Home } from "lucide-react";
 import Link from "next/link";
-import { SignOutButton } from "./SignOutButton";
+import { SignOutButton } from "@/components/SignOutButton";
 
 interface HeaderbarProps {
   title: string;

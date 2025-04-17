@@ -5,10 +5,10 @@ import PetProfileHeaderbar from "@/components/pets/PetProfileHeadBar";
 import { editPet } from "@/lib/pet-actions";
 import { useParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function EditPet() {
   const [pet, setPet] = useState(null);
-  const [message, setMessage] = useState<string | null>(null);
   const router = useRouter();
   const { id } = useParams();
 
@@ -20,13 +20,13 @@ export default function EditPet() {
         .then((res) => res.json())
         .then((data) => {
           if (data.error) {
-            setMessage("Pet not found");
+            toast.error("Pet not found");
           } else {
             setPet(data);
           }
         })
         .catch(() => {
-          setMessage("Error fetching pet data");
+          toast.error("Error fetching pet data");
         });
     }
   }, [id]);
@@ -37,13 +37,13 @@ export default function EditPet() {
       if (idStr) {
         await editPet(formData, idStr);
         // Set success message and redirect to "/dashboard"
-        setMessage("Pet edited successfully");
+        toast.message("Pet edited successfully");
         setTimeout(() => {
           router.push("/dashboard");
         }, 1000);
       }
     } catch (error) {
-      setMessage("Error editing pet");
+      toast.error("Error editing pet");
     }
   };
 
@@ -57,7 +57,6 @@ export default function EditPet() {
           <>
             {/* Pet form */}
             <PetForm title="Edit Pet" action={handleAction} pet={pet} />
-            {message && <p className="text-sm text-destructive">{message}</p>}
           </>
         )}
       </Suspense>

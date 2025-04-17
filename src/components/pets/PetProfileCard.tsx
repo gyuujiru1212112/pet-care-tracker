@@ -28,8 +28,6 @@ export default function PetProfileCard({
       onDeletePet(pet.id);
     } catch {
       setMessage("Error deleting pet");
-    } finally {
-      setMessage("");
     }
   }
 

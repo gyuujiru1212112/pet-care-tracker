@@ -5,10 +5,10 @@ import PetForm from "@/components/pets/PetForm";
 import PetProfileHeaderbar from "@/components/pets/PetProfileHeadBar";
 import { createPet } from "@/lib/pet-actions";
 import { useRouter } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
+import { toast } from "sonner";
 
 export default function AddPet() {
-  const [message, setMessage] = useState<string | null>(null);
   const router = useRouter();
 
   const handleAction = async (formData: FormData) => {
@@ -16,13 +16,15 @@ export default function AddPet() {
       // Call createPet Server Action
       await createPet(formData);
       // Set success message and redirect to "/dashboard"
-      setMessage("Pet created successfully");
+      toast.message("Pet created successfully");
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
     } catch (error) {
       // Set error message
-      setMessage(error instanceof Error ? error.message : "Error creating pet");
+      toast.error(
+        error instanceof Error ? error.message : "Error creating pet"
+      );
     }
   };
 
@@ -33,7 +35,6 @@ export default function AddPet() {
       <Suspense fallback={<LoadingMessage message="Loading add pet page..." />}>
         {/* Pet form */}
         <PetForm title="Add Pet" action={handleAction} pet={null} />
-        {message && <p className="text-sm text-destructive">{message}</p>}
       </Suspense>
     </div>
   );

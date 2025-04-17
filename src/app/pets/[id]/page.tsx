@@ -12,8 +12,10 @@ import { CalendarHeart, LucideChevronUpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import ExistingLog from "@/components/logs/ExistingLog";
-import { addLog, deleteLog } from "@/lib/log-actions";
+import { addLog, deleteLog, editLog } from "@/lib/log-actions";
 import LoadingMessage from "@/components/LoadingMessage";
+import EditLog from "@/components/logs/EditLog";
+import { toast } from "sonner";
 
 type DateLogs = {
   date: Date;
@@ -34,7 +36,6 @@ export default function PetTimelinePage() {
   const initialDaysToLoad = 3;
   const [pet, setPet] = useState<Pet>();
   const [pets, setPets] = useState<Pet[]>();
-  const [message, setMessage] = useState<string | null>(null);
   const [lastLoadedDate, setLastLoadedDate] = useState<Date>(() => {
     return subDays(startOfDay(new Date()), initialDaysToLoad);
   });
@@ -69,6 +70,9 @@ export default function PetTimelinePage() {
       logs: [],
     }));
   };
+
+  const [editLogId, setEditLogId] = useState("");
+  const [editDay, setEditDay] = useState<Date | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [activeDay, setActiveDay] = useState<Date | null>(null);
@@ -110,7 +114,7 @@ export default function PetTimelinePage() {
     } catch (error) {
       setIsLoading(false);
       if (error instanceof Error) {
-        setMessage(error.message);
+        toast.error(error.message);
       }
     }
   };
@@ -125,13 +129,13 @@ export default function PetTimelinePage() {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          setMessage(data.error || "Pets not found");
+          toast.error(data.error || "Pets not found");
         } else {
           setPets(data);
         }
       })
       .catch(() => {
-        setMessage("Error fetching pets");
+        toast.error("Error fetching pets");
       });
     fetch(
       `/api/pets/${petId}/?withLogs=true&before=${today}&days=${initialDaysToLoad}`
@@ -141,7 +145,7 @@ export default function PetTimelinePage() {
         console.log("Fetched pet with logs: ", data);
 
         if (data.error) {
-          setMessage(data.error || "Pet with logs not found");
+          toast.error(data.error || "Pet with logs not found");
         } else {
           setPet(data);
 
@@ -150,7 +154,7 @@ export default function PetTimelinePage() {
         }
       })
       .catch(() => {
-        setMessage("Error fetching pet data");
+        toast.error("Error fetching pet data");
       });
   }, [petId]);
 
@@ -162,22 +166,66 @@ export default function PetTimelinePage() {
         const logDate = format(newLog.date, "yyyy-MM-dd");
 
         setDayLogs((prev) => {
-          const logDateObj = new Date(logDate);
-
           return prev.some((d) => format(d.date, "yyyy-MM-dd") === logDate)
             ? prev.map((d) => {
-                const isSameDay = format(d.date, "yyyy-MM-dd") === logDate;
-                return isSameDay ? { ...d, logs: [newLog, ...d.logs] } : d;
+                return format(d.date, "yyyy-MM-dd") === logDate
+                  ? { ...d, logs: [newLog, ...d.logs] }
+                  : d;
               })
-            : [{ date: logDateObj, logs: [newLog] }, ...prev];
+            : [{ date: new Date(logDate), logs: [newLog] }, ...prev];
         });
+
+        toast.message("Log Added!");
+      } else {
+        toast.error("Failed to add log. Please try again.");
       }
     } catch {
-      setMessage("Failed to add log. Please try again.");
+      toast.error("Failed to add log. Please try again.");
       // todo optional fetch?
-    } finally {
-      setMessage("");
     }
+  };
+
+  const handleEditLog = async (
+    day: Date,
+    logId: string,
+    logContent: string,
+    tag: string,
+    petId: string
+  ) => {
+    try {
+      const newLog = await editLog(day, logId, logContent, tag, petId);
+
+      if (newLog) {
+        setDayLogs((prev) =>
+          prev.map((dayLog) => {
+            const isSameDate =
+              startOfDay(dayLog.date).getTime() === startOfDay(day).getTime();
+
+            if (!isSameDate) return dayLog;
+
+            return {
+              ...dayLog,
+              logs: dayLog.logs.map((log) =>
+                log.id === newLog.id ? newLog : log
+              ),
+            };
+          })
+        );
+        toast.message("Log Edited!");
+      } else {
+        toast.error("Failed to edit log. Please try again.");
+      }
+    } catch {
+      toast.error("Failed to edit log. Please try again.");
+    } finally {
+      setEditDay(null);
+      setEditLogId("");
+    }
+  };
+
+  const handleCloseEditBox = () => {
+    setEditDay(null);
+    setEditLogId("");
   };
 
   const handleDeleteLog = async (day: Date, logId: string) => {
@@ -194,10 +242,8 @@ export default function PetTimelinePage() {
         )
       );
     } catch {
-      setMessage("Failed to delete log. Please try again.");
+      toast.error("Failed to delete log. Please try again.");
       // todo optional fetch?
-    } finally {
-      setMessage("");
     }
   };
 
@@ -293,6 +339,7 @@ export default function PetTimelinePage() {
                             <div className="flex items-center justify-between">
                               <h3 className="text-lg font-medium">{dateStr}</h3>
                               <Button
+                                disabled={editDay !== null}
                                 variant="ghost"
                                 size="sm"
                                 onClick={() =>
@@ -305,15 +352,48 @@ export default function PetTimelinePage() {
 
                             {day.logs.length > 0 && (
                               <div className="mt-3 space-y-3">
-                                {day.logs.map((log) => (
-                                  <ExistingLog
-                                    log={log}
-                                    key={log.id}
-                                    onDeleteLog={() =>
-                                      handleDeleteLog(day.date, log.id)
-                                    }
-                                  />
-                                ))}
+                                {day.logs.map((log) => {
+                                  const isEdit =
+                                    editDay &&
+                                    startOfDay(editDay).getTime() ===
+                                      startOfDay(log.date).getTime() &&
+                                    editLogId === log.id;
+
+                                  return isEdit ? (
+                                    <EditLog
+                                      key={log.id}
+                                      log={log}
+                                      onEditLog={(
+                                        date,
+                                        logId,
+                                        logContent,
+                                        tag,
+                                        petId
+                                      ) =>
+                                        handleEditLog(
+                                          date,
+                                          logId,
+                                          logContent,
+                                          tag,
+                                          petId
+                                        )
+                                      }
+                                      onCloseEdit={handleCloseEditBox}
+                                    />
+                                  ) : (
+                                    <ExistingLog
+                                      key={log.id}
+                                      log={log}
+                                      onDeleteLog={() =>
+                                        handleDeleteLog(day.date, log.id)
+                                      }
+                                      onEditLog={(logId) => {
+                                        setEditDay(day.date);
+                                        setEditLogId(logId);
+                                      }}
+                                    />
+                                  );
+                                })}
                               </div>
                             )}
 
