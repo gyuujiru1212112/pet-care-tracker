@@ -7,7 +7,7 @@ import PetProfileCard from "@/components/pets/PetProfileCard";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
-import LoadingError from "../LoadingError";
+import LoadingError from "@/components/LoadingError";
 
 interface PetListProps {
   userId: string;
@@ -47,7 +47,7 @@ export default function PetList({ userId }: PetListProps) {
   }, []);
 
   if (error) {
-    return <LoadingError message={error} />;
+    return <LoadingError />;
   }
 
   return (

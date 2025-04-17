@@ -21,7 +21,7 @@ export default function PetSelection({ pets, selectedPet }: PetsSectionProps) {
   return (
     <div className="p-4">
       {pets.length === 0 ? (
-        <LoadingError message="No Pets" />
+        <LoadingError />
       ) : (
         <div className="flex flex-col items-center space-y-4">
           {selectedPet ? (

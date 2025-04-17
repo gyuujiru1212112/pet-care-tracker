@@ -25,7 +25,7 @@ export default function PetDropDown({ pets, selectedPet }: PetDropDownProps) {
   return (
     <div className="p-4">
       {pets.length === 0 ? (
-        <LoadingError message="No Pets" />
+        <LoadingError />
       ) : (
         <div className="flex flex-col items-center space-y-4">
           {selectedPet ? (
