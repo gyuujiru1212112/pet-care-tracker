@@ -102,7 +102,7 @@ export default function PetForm({ title, action, pet }: PetFormProps) {
                   {title === "Add Pet" ? "Add" : "OK"}
                 </Button>
                 <Link href="/dashboard" className="w-full sm:w-36">
-                  <Button variant="outline" className="w-full py-3 text-base">
+                  <Button variant="secondary" className="w-full py-3 text-base">
                     Cancel
                   </Button>
                 </Link>

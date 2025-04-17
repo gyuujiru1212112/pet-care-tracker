@@ -34,7 +34,7 @@ export default function Register() {
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-cover bg-center bg-accent">
       {/* { todo adjust later } */}
-      <Card className="w-[380px]">
+      <Card className="w-[400px] h-[400px]">
         <CardHeader>
           <CardTitle>Sign up</CardTitle>
           <CardDescription>Create an account to get started.</CardDescription>
@@ -65,7 +65,7 @@ export default function Register() {
           <div className="flex w-full justify-between items-center">
             <Label>Already have an account?</Label>
             <Link href="/login">
-              <Button>Sign in</Button>
+              <Button variant="secondary">Sign in</Button>
             </Link>
           </div>
           {message && <p className="text-sm text-destructive">{message}</p>}

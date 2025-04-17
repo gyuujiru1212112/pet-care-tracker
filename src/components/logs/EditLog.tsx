@@ -108,7 +108,12 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
               <Send className="mr-2 h-4 w-4" />
               Edit
             </Button>
-            <Button className="ml-5 text-base" size="sm" onClick={handleClose}>
+            <Button
+              className="ml-5 text-base"
+              variant="secondary"
+              size="sm"
+              onClick={handleClose}
+            >
               Close
             </Button>
           </div>

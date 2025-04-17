@@ -16,7 +16,7 @@ export default function Login() {
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-accent">
       {/* { todo adjust later, login credential error handling } */}
-      <Card className="w-[380px]">
+      <Card className="w-[400px] h-[400px]">
         <CardHeader>
           <CardTitle>Sign in</CardTitle>
           <CardDescription>
@@ -58,7 +58,7 @@ export default function Login() {
           <div className="flex w-full justify-between items-center">
             <Label>Don't have an account?</Label>
             <Link href="/signup">
-              <Button>Sign up</Button>
+              <Button variant="secondary">Sign up</Button>
             </Link>
           </div>
           {/*todo {message && <p className="text-sm text-destructive">{message}</p>} */}
