@@ -1,7 +1,6 @@
 "use server";
 import { createUser, getUserFromDb } from "@/utils/db";
 import { signIn, signOut } from "@/lib/auth";
-import { redirect } from "next/navigation";
 
 export async function signUpWithEmail(formData: FormData) {
   try {
