@@ -57,19 +57,19 @@ export async function signInWithEmailPassword(formData: FormData) {
 
   /* Workaround for next-auth not callback */
   const res = await signIn("credentials", {
-    redirect: false,
+    redirectTo: "/dashboard",
     email: email,
     password: password,
   });
 
-  if (!res.error) {
+  if (res) {
     console.log("ok?");
-    signIn("credentials", {
-      email: email,
-      password: password,
-    });
-    console.log("redirect?");
-    redirect("/dashboard");
+    // signIn("credentials", {
+    //   email: email,
+    //   password: password,
+    // });
+    // console.log("redirect?");
+    // redirect("/dashboard");
   } else {
     throw new Error("Invalid password.");
   }
