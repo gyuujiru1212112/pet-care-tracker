@@ -55,15 +55,16 @@ export default function PetList({ userId }: PetListProps) {
         ))}
 
       {/* Add Pet Card */}
-      {/* todo height adjusting */}
-      <Link href="/pets/new">
-        <Card className="flex items-center justify-center cursor-pointer hover:bg-muted rounded-lg">
-          <CardContent className="flex flex-col items-center justify-center p-6">
-            <Plus className="w-6 h-6 text-muted-foreground" />
-            <p className="mt-2 text-sm text-muted-foreground">Add Pet</p>
-          </CardContent>
-        </Card>
-      </Link>
+      <div className="h-full">
+        <Link href="/pets/new" className="block h-full">
+          <Card className="flex items-center justify-center cursor-pointer hover:bg-muted rounded-lg min-h-[273px] ">
+            <CardContent className="flex flex-col items-center justify-center p-6 h-full">
+              <Plus className="w-6 h-6 text-muted-foreground" />
+              <p className="mt-2 text-sm text-muted-foreground">Add Pet</p>
+            </CardContent>
+          </Card>
+        </Link>
+      </div>
     </div>
   );
 }

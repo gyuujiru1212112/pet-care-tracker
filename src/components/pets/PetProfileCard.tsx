@@ -46,7 +46,7 @@ export default function PetProfileCard({
   }
 
   return (
-    <div className="relative group">
+    <div className="relative group h-full">
       {/* Edit and Delete buttons */}
       <div className="absolute right-2 top-2 z-50">
         <div className="flex gap-2">
@@ -96,7 +96,7 @@ export default function PetProfileCard({
       </div>
 
       <Link href={`/pets/${pet.id}`} className="block transition-all">
-        <Card className="relative h-full transition-all hover:shadow-md hover:-translate-y-1">
+        <Card className="relative min-h-[250px] transition-all hover:shadow-md hover:-translate-y-1">
           <CardContent className="flex flex-col items-center p-4">
             <img
               src={pet.profilePictureUrl || "/default-pet.png"}
