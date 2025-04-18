@@ -23,6 +23,7 @@ export default function UploadModal({
   }, [isOpen]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
@@ -95,13 +96,13 @@ export default function UploadModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-300 rounded-md"
+              className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition-all duration-300"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-black text-white rounded-md"
+              className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
             >
               Upload
             </button>
