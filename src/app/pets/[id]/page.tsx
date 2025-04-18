@@ -42,28 +42,6 @@ export default function PetTimelinePage() {
   });
   const petId = usePetId();
 
-  function groupLogByDate(logs: Log[]) {
-    console.log("Logs: ", logs);
-    const grouped = new Map<string, Log[]>();
-    for (const log of logs) {
-      const dateKey = format(log.date, "yyyy-MM-dd");
-      if (!grouped.has(dateKey)) {
-        grouped.set(dateKey, []);
-      }
-      grouped.get(dateKey)!.push(log);
-    }
-
-    const groupedLogsByDate: DateLogs[] = dayLogs.map((dayLog) => {
-      const dateKey = format(dayLog.date, "yyyy-MM-dd");
-      return {
-        date: dayLog.date,
-        logs: grouped.get(dateKey) || [],
-      };
-    });
-
-    return groupedLogsByDate;
-  }
-
   function groupLogByDateWithDayLogs(logs: Log[], dayLogs: DateLogs[]) {
     console.log("Logs: ", logs);
     const grouped = new Map<string, Log[]>();
@@ -164,6 +142,28 @@ export default function PetTimelinePage() {
   );
 
   useEffect(() => {
+    function groupLogByDate(logs: Log[]) {
+      console.log("Logs: ", logs);
+      const grouped = new Map<string, Log[]>();
+      for (const log of logs) {
+        const dateKey = format(log.date, "yyyy-MM-dd");
+        if (!grouped.has(dateKey)) {
+          grouped.set(dateKey, []);
+        }
+        grouped.get(dateKey)!.push(log);
+      }
+
+      const groupedLogsByDate: DateLogs[] = dayLogs.map((dayLog) => {
+        const dateKey = format(dayLog.date, "yyyy-MM-dd");
+        return {
+          date: dayLog.date,
+          logs: grouped.get(dateKey) || [],
+        };
+      });
+
+      return groupedLogsByDate;
+    }
+
     const today = new Date().toISOString();
     fetch(`/api/pets/`)
       .then((res) => res.json())

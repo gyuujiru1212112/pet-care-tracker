@@ -17,15 +17,6 @@ export default function PetList({ userId }: PetListProps) {
   const [pets, setPets] = useState<Pet[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  async function fetchPets() {
-    const res = await getPets(userId);
-    if (res.error) {
-      setError(res.error);
-    } else {
-      setPets(res.pets);
-    }
-  }
-
   const handleDelete = async (petId: string) => {
     try {
       await deletePet(petId);
@@ -40,8 +31,17 @@ export default function PetList({ userId }: PetListProps) {
   };
 
   useEffect(() => {
+    async function fetchPets() {
+      const res = await getPets(userId);
+      if (res.error) {
+        setError(res.error);
+      } else {
+        setPets(res.pets);
+      }
+    }
+
     fetchPets();
-  }, []);
+  }, [userId]);
 
   if (error) {
     return <LoadingError />;

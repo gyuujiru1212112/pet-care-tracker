@@ -49,10 +49,10 @@ export default function PetSelection({ pets, selectedPet }: PetsSectionProps) {
           {pets.filter((p) => p.id !== selectedPet?.id).length > 0 && (
             <div>
               <hr className="w-full border-t border-gray-300" />
-              <Label className="text-sm font-medium mt-4">
-                🐾 Select a pet to switch
+              <Label className="text-sm font-medium mt-4 justify-center">
+                🐾 Select a pet to switch 🐾
               </Label>
-              <div className="flex flex-wrap justify-center gap-4 mt-2">
+              <div className="flex flex-wrap justify-center gap-3 mt-2 pt-2">
                 {pets
                   .filter((p) => p.id !== selectedPet?.id)
                   .map((pet) => (
@@ -63,7 +63,7 @@ export default function PetSelection({ pets, selectedPet }: PetsSectionProps) {
                       <Button
                         onClick={() => handleSelection(pet.id)}
                         variant="ghost"
-                        className="p-0 w-18 h-18 rounded-full overflow-hidden shadow-md hover:scale-105 transition-transform"
+                        className="p-0 w-22 h-22 rounded-full overflow-hidden shadow-md hover:scale-110 transition-transform"
                       >
                         <PetIcon pet={pet} />
                       </Button>
