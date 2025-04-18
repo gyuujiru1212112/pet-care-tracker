@@ -13,20 +13,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { signInWithEmailPassword } from "@/lib/auth-actions";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function Login() {
-  const router = useRouter();
-
   async function handleSignIn(formData: FormData) {
     try {
       await signInWithEmailPassword(formData);
-      toast.message("Login successful!");
-      router.push("/dashboard");
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(`${error.message} Please try again.`);
+      if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
+        if (error.message === "User does not exist.") {
+          toast.error(`${error.message} Please try again.`);
+        } else {
+          toast.error(`Invalid password. Please try again.`);
+        }
       }
     }
   }

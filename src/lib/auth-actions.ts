@@ -1,6 +1,7 @@
 "use server";
 import { createUser, getUserFromDb } from "@/utils/db";
 import { signIn, signOut } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export async function signUpWithEmail(formData: FormData) {
   try {
@@ -61,11 +62,14 @@ export async function signInWithEmailPassword(formData: FormData) {
     password: password,
   });
 
-  if (res?.ok) {
+  if (!res.error) {
+    console.log("ok?");
     signIn("credentials", {
       email: email,
       password: password,
     });
+    console.log("redirect?");
+    redirect("/dashboard");
   } else {
     throw new Error("Invalid password.");
   }
