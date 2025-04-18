@@ -384,6 +384,7 @@ export default function PetTimelinePage() {
                                     <ExistingLog
                                       key={log.id}
                                       log={log}
+                                      isActive={isActive || false}
                                       onDeleteLog={() =>
                                         handleDeleteLog(day.date, log.id)
                                       }

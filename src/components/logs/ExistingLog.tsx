@@ -22,12 +22,14 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 
 interface ExistingLogProps {
+  isActive: boolean;
   log: Log;
   onDeleteLog: (logId: string) => Promise<void>;
   onEditLog: (logId: string) => void;
 }
 
 export default function ExistingLog({
+  isActive,
   log,
   onDeleteLog,
   onEditLog,
@@ -72,6 +74,7 @@ export default function ExistingLog({
 
           {/* Delete button */}
           <Button
+            disabled={isActive}
             variant="ghost"
             size="icon"
             className="absolute top-1 right-8 h-6 w-6"
