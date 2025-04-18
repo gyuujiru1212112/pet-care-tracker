@@ -63,7 +63,7 @@ export default function PetSelection({ pets, selectedPet }: PetsSectionProps) {
                       <Button
                         onClick={() => handleSelection(pet.id)}
                         variant="ghost"
-                        className="p-0 w-16 h-16 rounded-full overflow-hidden shadow-md hover:scale-105 transition-transform"
+                        className="p-0 w-18 h-18 rounded-full overflow-hidden shadow-md hover:scale-105 transition-transform"
                       >
                         <PetIcon pet={pet} />
                       </Button>

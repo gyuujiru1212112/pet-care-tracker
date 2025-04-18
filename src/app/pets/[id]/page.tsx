@@ -175,7 +175,7 @@ export default function PetTimelinePage() {
             : [{ date: new Date(logDate), logs: [newLog] }, ...prev];
         });
 
-        toast.message("Log Added!");
+        toast.message("Log added!");
       } else {
         toast.error("Failed to add log. Please try again.");
       }
@@ -211,7 +211,7 @@ export default function PetTimelinePage() {
             };
           })
         );
-        toast.message("Log Edited!");
+        toast.message("Log edited!");
       } else {
         toast.error("Failed to edit log. Please try again.");
       }

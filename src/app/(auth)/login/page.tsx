@@ -49,7 +49,10 @@ export default function Login() {
                 />
               </div>
             </div>
-            <Button className="w-full place-items-center mt-6" type="submit">
+            <Button
+              className="w-full place-items-center mt-6 hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
+              type="submit"
+            >
               Sign in
             </Button>
           </form>
@@ -58,7 +61,12 @@ export default function Login() {
           <div className="flex w-full justify-between items-center">
             <Label>Don&apos;t have an account?</Label>
             <Link href="/signup">
-              <Button variant="secondary">Sign up</Button>
+              <Button
+                variant="secondary"
+                className="hover:bg-gray-300 transition-all duration-300"
+              >
+                Sign up
+              </Button>
             </Link>
           </div>
           {/*todo {message && <p className="text-sm text-destructive">{message}</p>} */}

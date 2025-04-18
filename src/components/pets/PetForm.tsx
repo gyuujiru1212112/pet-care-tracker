@@ -98,11 +98,17 @@ export default function PetForm({ title, action, pet }: PetFormProps) {
               />
 
               <div className="flex flex-col sm:flex-row justify-end gap-4 mt-6 w-full">
-                <Button className="w-full sm:w-36 py-3 text-base" type="submit">
+                <Button
+                  className="w-full sm:w-36 py-3 text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
+                  type="submit"
+                >
                   {title === "Add Pet" ? "Add" : "OK"}
                 </Button>
                 <Link href="/dashboard" className="w-full sm:w-36">
-                  <Button variant="secondary" className="w-full py-3 text-base">
+                  <Button
+                    variant="secondary"
+                    className="w-full py-3 text-base hover:bg-gray-300 transition-all duration-300"
+                  >
                     Cancel
                   </Button>
                 </Link>

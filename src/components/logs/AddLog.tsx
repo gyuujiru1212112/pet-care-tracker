@@ -90,7 +90,7 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
               <p className="text-md text-destructive mr-3">{message}</p>
             )}
             <Button
-              className="text-base"
+              className="text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               size="sm"
               onClick={handleAction}
               disabled={!logContent.trim()}

@@ -56,7 +56,10 @@ export default function Register() {
                 />
               </div>
             </div>
-            <Button className="w-full place-items-center mt-6" type="submit">
+            <Button
+              className="w-full place-items-center mt-6 hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
+              type="submit"
+            >
               Sign up
             </Button>
           </form>
@@ -65,7 +68,12 @@ export default function Register() {
           <div className="flex w-full justify-between items-center">
             <Label>Already have an account?</Label>
             <Link href="/login">
-              <Button variant="secondary">Sign in</Button>
+              <Button
+                variant="secondary"
+                className="hover:bg-gray-300 transition-all duration-300"
+              >
+                Sign in
+              </Button>
             </Link>
           </div>
           {message && <p className="text-sm text-destructive">{message}</p>}

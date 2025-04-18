@@ -26,13 +26,13 @@ export async function signUpWithEmail(formData: FormData) {
     if (error instanceof Error) {
       return {
         success: false,
-        message: `Error: ${error.message || "Sign-up failed"}`,
+        message: `${error.message || "Sign-up failed"}. Please try again.`,
       };
     }
 
     return {
       success: false,
-      message: `Error: "Sign-up failed"}`,
+      message: `"Sign-up failed. Please try again."}`,
     };
   }
 }
