@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Tag, Tags } from "@/constants/tags";
 import { Log } from "@prisma/client";
+import { toast } from "sonner";
 
 interface EditLogProps {
   log: Log;
@@ -26,13 +27,12 @@ interface EditLogProps {
 export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
   const [logContent, setLogContent] = useState(log.description);
   const [tag, setTag] = useState<Tag>(log.tag as Tag);
-  const [message, setMessage] = useState("");
 
   const handleClose = () => {
     try {
       onCloseEdit();
     } catch {
-      setMessage("Failed to close the edit box. Please refresh the page.");
+      toast.error("Failed to close the edit box. Please refresh the page.");
     }
   };
 
@@ -44,9 +44,8 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
       currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
 
       await onEditLog(currentDate, log.id, logContent, tag, log.petId);
-      setMessage("");
     } catch {
-      setMessage("Failed to edit. Please try again.");
+      toast.error("Failed to edit. Please try again.");
     } finally {
       setLogContent("");
       setTag("other");
@@ -96,9 +95,6 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
             className="min-h-[100px] resize-none"
           />
           <div className="flex justify-end">
-            {message && (
-              <p className="text-md text-destructive mr-3">{message}</p>
-            )}
             <Button
               className="text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               size="sm"

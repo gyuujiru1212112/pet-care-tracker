@@ -20,13 +20,13 @@ export default function EditPet() {
         .then((res) => res.json())
         .then((data) => {
           if (data.error) {
-            toast.error("Pet not found");
+            toast.error("Pet not found.");
           } else {
             setPet(data);
           }
         })
         .catch(() => {
-          toast.error("Error fetching pet data");
+          toast.error("Error fetching pet data.");
         });
     }
   }, [id]);
@@ -43,7 +43,7 @@ export default function EditPet() {
         }, 1000);
       }
     } catch {
-      toast.error("Error editing pet");
+      toast.error("Error editing pet.");
     }
   };
 

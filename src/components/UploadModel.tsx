@@ -13,17 +13,17 @@ export default function UploadModal({
   onUpload,
 }: UploadModalProps) {
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
       setFile(null);
-      setError(null);
+      setMessage(null);
     }
   }, [isOpen]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError(null);
+    setMessage(null);
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
@@ -33,7 +33,7 @@ export default function UploadModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) {
-      setError("Please select a file");
+      setMessage("Please select a file");
       return;
     }
 
@@ -54,7 +54,7 @@ export default function UploadModal({
       onUpload(data.url);
       onClose();
     } catch (err) {
-      setError("Failed to upload file");
+      setMessage("Failed to upload file");
       console.error(err);
     }
   };
@@ -91,7 +91,7 @@ export default function UploadModal({
               />
             </div>
           )}
-          {error && <p className="text-destructive text-sm">{error}</p>}
+          {message && <p className="text-destructive text-sm">{message}</p>}
           <div className="flex justify-between mt-4">
             <button
               type="button"

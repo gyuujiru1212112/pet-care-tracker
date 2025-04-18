@@ -129,13 +129,13 @@ export default function PetTimelinePage() {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          toast.error(data.error || "Pets not found");
+          toast.error(data.error || "Pets not found.");
         } else {
           setPets(data);
         }
       })
       .catch(() => {
-        toast.error("Error fetching pets");
+        toast.error("Error fetching pets.");
       });
     fetch(
       `/api/pets/${petId}/?withLogs=true&before=${today}&days=${initialDaysToLoad}`
@@ -145,7 +145,7 @@ export default function PetTimelinePage() {
         console.log("Fetched pet with logs: ", data);
 
         if (data.error) {
-          toast.error(data.error || "Pet with logs not found");
+          toast.error(data.error || "Pet with logs not found.");
         } else {
           setPet(data);
 
@@ -154,7 +154,7 @@ export default function PetTimelinePage() {
         }
       })
       .catch(() => {
-        toast.error("Error fetching pet data");
+        toast.error("Error fetching pet data.");
       });
   }, [petId]);
 

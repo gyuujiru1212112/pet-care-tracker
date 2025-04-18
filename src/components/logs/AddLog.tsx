@@ -9,6 +9,7 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Tag, Tags } from "@/constants/tags";
+import { toast } from "sonner";
 
 interface AddLogProps {
   date: Date;
@@ -24,7 +25,6 @@ interface AddLogProps {
 export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
   const [logContent, setLogContent] = useState("");
   const [tag, setTag] = useState<Tag>("other");
-  const [message, setMessage] = useState("");
 
   const handleAction = async () => {
     try {
@@ -34,9 +34,8 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
       currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
 
       await onAddLog(currentDate, logContent, tag, petId);
-      setMessage("");
     } catch {
-      setMessage("Failed to add. Please try again.");
+      toast.error("Failed to add. Please try again.");
     } finally {
       setLogContent("");
       setTag("other");
@@ -86,9 +85,6 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
             className="min-h-[100px] resize-none"
           />
           <div className="flex justify-end">
-            {message && (
-              <p className="text-md text-destructive mr-3">{message}</p>
-            )}
             <Button
               className="text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               size="sm"

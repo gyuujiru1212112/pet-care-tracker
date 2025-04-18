@@ -16,14 +16,14 @@ export default function AddPet() {
       // Call createPet Server Action
       await createPet(formData);
       // Set success message and redirect to "/dashboard"
-      toast.message("Pet created successfully");
+      toast.message("Pet created successfully!");
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
     } catch (error) {
       // Set error message
       toast.error(
-        error instanceof Error ? error.message : "Error creating pet"
+        error instanceof Error ? error.message : "Error creating pet."
       );
     }
   };

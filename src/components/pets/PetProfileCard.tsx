@@ -2,12 +2,23 @@
 
 import { Pet } from "@prisma/client";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { useState } from "react";
+import { toast } from "sonner";
 
 interface PetProfileCardProps {
   pet: Pet;
@@ -19,15 +30,14 @@ export default function PetProfileCard({
   onDeletePet,
 }: PetProfileCardProps) {
   const router = useRouter();
-  const [message, setMessage] = useState("");
 
   function handleDelete(): void {
     try {
       console.log("Delete pet");
-      setMessage("");
       onDeletePet(pet.id);
+      toast.message("Pet profile deleted!");
     } catch {
-      setMessage("Error deleting pet");
+      toast.error("Error deleting pet.");
     }
   }
 
@@ -40,9 +50,6 @@ export default function PetProfileCard({
       {/* Edit and Delete buttons */}
       <div className="absolute right-2 top-2 z-50">
         <div className="flex gap-2">
-          {message && (
-            <p className="text-destructive text-lg bg-background">{message}</p>
-          )}
           <Button
             variant="outline"
             size="icon"
@@ -52,19 +59,39 @@ export default function PetProfileCard({
             <Pencil className="h-4 w-4" />
             <span className="sr-only">Edit</span>
           </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 bg-background hover:bg-destructive hover:text-destructive-foreground"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              handleDelete();
-            }}
-          >
-            <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Delete</span>
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 bg-background hover:bg-destructive hover:text-destructive-foreground"
+              >
+                <Trash2 className="h-4 w-4" />
+                <span className="sr-only">Delete</span>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  this pet profile and all of its logs.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    handleDelete();
+                  }}
+                >
+                  Yes, delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
 
