@@ -37,11 +37,34 @@ export default function PetTimelinePage() {
   const [pet, setPet] = useState<Pet>();
   const [pets, setPets] = useState<Pet[]>();
   const [lastLoadedDate, setLastLoadedDate] = useState<Date>(() => {
-    return subDays(startOfDay(new Date()), initialDaysToLoad);
+    // today - (initialDaysToLoad - 1)
+    return subDays(startOfDay(new Date()), initialDaysToLoad - 1);
   });
   const petId = usePetId();
 
   function groupLogByDate(logs: Log[]) {
+    console.log("Logs: ", logs);
+    const grouped = new Map<string, Log[]>();
+    for (const log of logs) {
+      const dateKey = format(log.date, "yyyy-MM-dd");
+      if (!grouped.has(dateKey)) {
+        grouped.set(dateKey, []);
+      }
+      grouped.get(dateKey)!.push(log);
+    }
+
+    const groupedLogsByDate: DateLogs[] = dayLogs.map((dayLog) => {
+      const dateKey = format(dayLog.date, "yyyy-MM-dd");
+      return {
+        date: dayLog.date,
+        logs: grouped.get(dateKey) || [],
+      };
+    });
+
+    return groupedLogsByDate;
+  }
+
+  function groupLogByDateWithDayLogs(logs: Log[], dayLogs: DateLogs[]) {
     console.log("Logs: ", logs);
     const grouped = new Map<string, Log[]>();
     for (const log of logs) {
@@ -88,25 +111,42 @@ export default function PetTimelinePage() {
       if (!lastLoadedDate) return;
 
       console.log("Last loaded date: ", lastLoadedDate);
-      const dateStr = new Date(lastLoadedDate).toISOString();
+      const dateStr = new Date(subDays(lastLoadedDate, 1)).toISOString();
 
       const earlierDaysToLoad = 2;
       const res = await fetch(
         `/api/pets/${petId}/?withLogs=true&before=${dateStr}&days=${earlierDaysToLoad}`
       );
       const newLogs = await res.json();
+      console.log(newLogs);
 
       setTimeout(() => {
         // set earlier logs
-        const nextOldestDate = subDays(lastLoadedDate, 1);
+        const nextOldestDate = subDays(lastLoadedDate, earlierDaysToLoad - 1);
+        console.log("Next oldest date: ", nextOldestDate);
         const newDays = initializeDays(earlierDaysToLoad, nextOldestDate);
-        setDayLogs((prevDays) => [...newDays, ...prevDays]);
-        setLastLoadedDate(subDays(nextOldestDate, earlierDaysToLoad - 1));
+        console.log("newDays: ", newDays);
 
-        if (newLogs.logs && newLogs.logs.length > 0) {
-          const groupedByDate = groupLogByDate(newLogs.logs);
-          setDayLogs(groupedByDate || []);
+        if (newLogs?.logs && newLogs.logs.length > 0) {
+          const groupedByDate = groupLogByDateWithDayLogs(
+            newLogs.logs,
+            newDays
+          );
+
+          // Append
+          setDayLogs((prevDays) => {
+            // Combine the existing logs with the new grouped logs
+            const updatedLogs = [...prevDays, ...groupedByDate];
+            return updatedLogs;
+          });
+        } else {
+          setDayLogs((prevDays) => {
+            const updatedLogs = [...prevDays, ...newDays];
+            return updatedLogs;
+          });
         }
+
+        setLastLoadedDate(subDays(nextOldestDate, 1));
 
         console.log("Set loading to false");
         setIsLoading(false);
