@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -10,9 +12,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { signIn } from "@/lib/auth";
+import { signInWithEmailPassword } from "@/lib/auth-actions";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Login() {
+  const router = useRouter();
+
+  async function handleSignIn(formData: FormData) {
+    try {
+      await signInWithEmailPassword(formData);
+      toast.message("Login successful!");
+      router.push("/dashboard");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(`${error.message} Please try again.`);
+      }
+    }
+  }
+
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-accent">
       {/* { todo adjust later, login credential error handling } */}
@@ -24,16 +42,7 @@ export default function Login() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form
-            action={async (formData: FormData) => {
-              "use server";
-              await signIn("credentials", {
-                redirectTo: "/dashboard",
-                email: formData.get("email") as string,
-                password: formData.get("password") as string,
-              });
-            }}
-          >
+          <form action={handleSignIn}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
@@ -69,7 +78,6 @@ export default function Login() {
               </Button>
             </Link>
           </div>
-          {/*todo {message && <p className="text-sm text-destructive">{message}</p>} */}
         </CardFooter>
       </Card>
     </div>

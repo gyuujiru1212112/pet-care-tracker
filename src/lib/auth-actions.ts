@@ -1,19 +1,19 @@
 "use server";
 import { createUser, getUserFromDb } from "@/utils/db";
-import { signOut } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth";
 
 export async function signUpWithEmail(formData: FormData) {
   try {
     const email = formData.get("email") as string;
-    if (!email) throw new Error("Email is required");
+    if (!email) throw new Error("Email is required.");
 
     const password = formData.get("password") as string;
-    if (!password) throw new Error("Password is required");
+    if (!password) throw new Error("Password is required.");
 
     const user = await getUserFromDb(email);
 
     if (user) {
-      throw new Error("User already exists");
+      throw new Error("User already exists.");
     }
 
     await createUser(email, password);
@@ -26,17 +26,47 @@ export async function signUpWithEmail(formData: FormData) {
     if (error instanceof Error) {
       return {
         success: false,
-        message: `${error.message || "Sign-up failed"}. Please try again.`,
+        message: `${error.message || "Sign-up failed."}`,
       };
     }
 
     return {
       success: false,
-      message: `"Sign-up failed. Please try again."}`,
+      message: `"Sign-up failed."}`,
     };
   }
 }
 
 export async function serverSignOut() {
   await signOut();
+}
+
+export async function signInWithEmailPassword(formData: FormData) {
+  const email = formData.get("email") as string;
+  if (!email) throw new Error("Email is required.");
+
+  const user = await getUserFromDb(email);
+
+  if (!user) {
+    throw new Error("User does not exist.");
+  }
+
+  const password = formData.get("password") as string;
+  if (!password) throw new Error("Password is required.");
+
+  /* Workaround for next-auth not callback */
+  const res = await signIn("credentials", {
+    redirect: false,
+    email: email,
+    password: password,
+  });
+
+  if (res?.ok) {
+    signIn("credentials", {
+      email: email,
+      password: password,
+    });
+  } else {
+    throw new Error("Invalid password.");
+  }
 }

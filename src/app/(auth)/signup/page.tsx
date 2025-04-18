@@ -12,22 +12,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUpWithEmail } from "@/lib/auth-actions";
+import { toast } from "sonner";
 
 export default function Register() {
-  const [message, setMessage] = useState("");
   const router = useRouter();
 
   async function handleSignUp(formData: FormData) {
     const result = await signUpWithEmail(formData);
-    setMessage(result.message);
 
     if (result.success) {
       setTimeout(() => {
+        toast.message(`Signup successful!`);
         router.push("/login");
       }, 1000);
+    } else {
+      toast.error(`${result.message} Please try again.`);
     }
   }
 
@@ -76,7 +77,6 @@ export default function Register() {
               </Button>
             </Link>
           </div>
-          {message && <p className="text-sm text-destructive">{message}</p>}
         </CardFooter>
       </Card>
     </div>
