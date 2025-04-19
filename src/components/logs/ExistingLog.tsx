@@ -72,7 +72,7 @@ export default function ExistingLog({
             <p className="text-sm">{log.description}</p>
           </div>
 
-          {/* Delete button */}
+          {/* Edit button */}
           <Button
             disabled={isActive}
             variant="ghost"
@@ -86,6 +86,7 @@ export default function ExistingLog({
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button
+                disabled={isActive}
                 variant="ghost"
                 size="icon"
                 className="hover:bg-destructive hover:text-destructive-foreground absolute top-1 right-1 h-6 w-6"

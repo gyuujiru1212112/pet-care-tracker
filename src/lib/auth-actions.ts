@@ -63,12 +63,6 @@ export async function signInWithEmailPassword(formData: FormData) {
 
   if (res) {
     console.log("ok?");
-    // signIn("credentials", {
-    //   email: email,
-    //   password: password,
-    // });
-    // console.log("redirect?");
-    // redirect("/dashboard");
   } else {
     throw new Error("Invalid password.");
   }

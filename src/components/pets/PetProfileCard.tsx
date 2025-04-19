@@ -95,7 +95,7 @@ export default function PetProfileCard({
         </div>
       </div>
 
-      <Link href={`/pets/${pet.id}`} className="block transition-all">
+      <Link href={`/pets/${pet.id}/log`} className="block transition-all">
         <Card className="relative min-h-[250px] transition-all hover:shadow-md hover:-translate-y-1">
           <CardContent className="flex flex-col items-center p-4">
             <img
