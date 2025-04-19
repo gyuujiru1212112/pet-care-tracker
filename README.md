@@ -63,36 +63,54 @@ This project met the advanced feature requirements for **User Authentication and
 ### User Guide:
 All the pages are responsive design. You can check more images under the **assets** folder.
 - **Homepage**: `baseURL`
-This is an attractive (maybe not) homepage. Clicking on **Get Started** will redirect to the sign-up page if no session is available. If a session is available, it will redirect to the dashboard.
-![Homepage-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/homepage-big.png)
+
+  This is an attractive (maybe not) homepage. Clicking on **Get Started** will redirect to the sign-up page if no session is available. If a session is available, it will redirect to the dashboard.
+  ![Homepage-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/homepage-big.png)
 - **Signup**: `baseURL/signup`
-You need to enter an email address and a password to register a new user.
-![Signup-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/signup-big.png)
+
+  You need to enter an email address and a password to register a new user.    
   - After successful sign-up, the page **redirects to the sign-in page**. Be cautious! I don't redirect you to the dashboard but to the sign-in page.
   - You should see a toast message telling you the error.
+
+  ![Signup-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/signup-big.png)
+
 - **Signin**: `baseURL/login`
-You need to enter the email address and password of a user you created before signing in.
-![Signin-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/signin-big.png)
-  - After successful sign-in, the page **redirects to the dashboard page**. This takes a bit of time. Be patient!
-  - You should see a toast message telling you the error.
-- **Signout**: A button on the right corner of the headbar. Clicking on it to sign out. See the image below.
-- **Home**: 🏠: A button on the left corner of the headbar. Clicking on it will **redirect to the dashboard page**. See the image below.
+
+  You need to enter the email address and password of a user you created before signing in.
+    - After successful sign-in, the page **redirects to the dashboard page**. This takes a bit of time. Be patient!
+    - You should see a toast message telling you the error.
+  
+  ![Signin-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/signin-big.png)
+
+
+- **Signout**:
+
+  A button on the right corner of the headbar. Clicking on it to sign out. See the image below.
+- **Home**: 🏠:
+  
+  A button on the left corner of the headbar. Clicking on it will **redirect to the dashboard page**. See the image below.
   ![Headbar](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/headbar.png)
 - **Dashboard**: `baseURL/dashboard`
-A board shows all the pets added, including their profile images, names, and birthdates.
-  ![Dashboard](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/dashboard-big.png)
-- **Pet Profile Card**: On the dashboard, each pet has a card-style profile. You can create a pet by clicking the **Add Pet** button.
+
+  A board shows all the pets added, including their profile images, names, and birthdates.
+    ![Dashboard](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/dashboard-big.png)
+- **Pet Profile Card**:
+  
+  On the dashboard, each pet has a card-style profile. You can create a pet by clicking the **Add Pet** button.
   - Add pet: `baseURL/pets/new`
-   Clicking on the **Add Pet** button will redirect you to a blank pet form page.
-   ![Add-pet](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/add-pet-big.png)
+  
+    Clicking on the **Add Pet** button will redirect you to a blank pet form page.
+    ![Add-pet](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/add-pet-big.png)
   - Edit pet:`baseURL/pets/[id]/edit`
-  Clicking on the **Pencil** button on the profile card will redirect you to a pet form page filled with the selected pet information.
-  ![pet-edit-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-edit-button.png)
-  ![edit-pet-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/edit-pet-big.png)
-  - Delete pet: Clicking on the **Trash Bin** button on the profile card will prompt an alert dialogue asking you to confirm whether you want to delete the pet. If yes, the pet profile and its logs will be deleted permanently. If not, nothing will be changed.
-  ![pet-delete-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-delete-button.png)
+  
+    Clicking on the **Pencil** button on the profile card will redirect you to a pet form page filled with the selected pet information.
+    ![pet-edit-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-edit-button.png)
+    ![edit-pet-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/edit-pet-big.png)
+    - Delete pet: Clicking on the **Trash Bin** button on the profile card will prompt an alert dialogue asking you to confirm whether you want to delete the pet. If yes, the pet profile and its logs will be deleted permanently. If not, nothing will be changed.
+    ![pet-delete-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-delete-button.png)
   ![delete-pet-alert](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/delete-pet-alert.png)
-  - Pet form: You can enter or edit the basic information for pets and upload a profile image in a modal.
+  - Pet form:
+  You can enter or edit the basic information for pets and upload a profile image in a modal.
     - File handling (image upload)
       - File not chosen
       ![upload-modal](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/profileimageUpload.png)
@@ -100,8 +118,9 @@ A board shows all the pets added, including their profile images, names, and bir
       ![upload-preview](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/image-preview-after-select-file.png)
 
 - **Log screen**: `baseURL/pets/[id]/log`
-Clicking on a particular pet profile card ("Tap to View" is a hint for mobile users to tap; For desktop users, you should notice a hover effect) will redirect to the log page of the selected pet. The log page will default display logs for the past 7 days, including today. Scroll up or down to see all of them.
-![log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/logpage.png)
+
+  Clicking on a particular pet profile card ("Tap to View" is a hint for mobile users to tap; For desktop users, you should notice a hover effect) will redirect to the log page of the selected pet. The log page will default display logs for the past 7 days, including today. Scroll up or down to see all of them.
+  ![log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/logpage.png)
   - Add log: Click on the **Add Log** button beside a date to open a log form under that date. Click on **Cancel** to close the log form without making changes. Enter any input, select a specific tag related to your log and click **Add Log** to add a new log. The successfully added log will be shown immediately afterwards.
   ![add-log](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/add-log-form.png)
   - Edit log: Similarly, click on the **Pencil** button on the top right corner of an existing log to change it to a log form. Click on **Cancel** to close the log form without making changes. Click **Edit Log** to edit the log. The successfully edited log will be updated immediately afterwards.
