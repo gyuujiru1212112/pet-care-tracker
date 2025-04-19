@@ -24,7 +24,6 @@ export default function Home() {
         </Link>
       </div>
       {/* Image */}
-      {/* todo adjust the image space */}
       <div className="relative flex-shrink-0 w-full md:w-1/2 aspect-w-16 aspect-h-9 overflow-hidden bg-cover bg-repeat">
         <img
           src="/background.jpg"

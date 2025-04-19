@@ -38,7 +38,6 @@ export default function Register() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-cover bg-center bg-accent">
-      {/* { todo adjust later } */}
       <Card className="w-[400px] h-[400px]">
         <CardHeader>
           <CardTitle>Sign up</CardTitle>

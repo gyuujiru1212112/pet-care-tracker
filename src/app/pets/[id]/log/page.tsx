@@ -223,7 +223,7 @@ export default function PetTimelinePage() {
       }
     } catch {
       toast.error("Failed to add log. Please try again.");
-      // todo optional fetch?
+      // optional fetch later?
     }
   };
 
@@ -285,7 +285,7 @@ export default function PetTimelinePage() {
       );
     } catch {
       toast.error("Failed to delete log. Please try again.");
-      // todo optional fetch?
+      // optional fetch later?
     }
   };
 

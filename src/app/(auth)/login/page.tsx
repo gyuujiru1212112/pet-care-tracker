@@ -37,7 +37,6 @@ export default function Login() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-accent">
-      {/* { todo adjust later, login credential error handling } */}
       <Card className="w-[400px] h-[400px]">
         <CardHeader>
           <CardTitle>Sign in</CardTitle>

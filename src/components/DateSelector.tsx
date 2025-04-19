@@ -16,7 +16,6 @@ export function DateSelector({ birthDate, setBirthDate }: DateSelectorProps) {
   console.log("Current birthdate: ", birthDate);
   const currentYear = new Date().getFullYear();
 
-  // todo style
   const [year, setYear] = useState(birthDate.getFullYear());
   const [month, setMonth] = useState(birthDate.getMonth() + 1); // 1-12
   const [day, setDay] = useState(birthDate.getDate());
