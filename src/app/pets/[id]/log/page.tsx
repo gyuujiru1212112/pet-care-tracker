@@ -33,7 +33,7 @@ function usePetId(): string {
 }
 
 export default function PetTimelinePage() {
-  const initialDaysToLoad = 3;
+  const initialDaysToLoad = 7;
   const [pet, setPet] = useState<Pet>();
   const [pets, setPets] = useState<Pet[]>();
   const [lastLoadedDate, setLastLoadedDate] = useState<Date>(() => {
