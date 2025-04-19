@@ -15,22 +15,26 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUpWithEmail } from "@/lib/auth-actions";
 import { toast } from "sonner";
+import { useTransition } from "react";
 
 export default function Register() {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  async function handleSignUp(formData: FormData) {
-    const result = await signUpWithEmail(formData);
+  const handleSignUp = async (formData: FormData) => {
+    startTransition(async () => {
+      const result = await signUpWithEmail(formData);
 
-    if (result.success) {
-      setTimeout(() => {
-        toast.message(`Signup successful!`);
-        router.push("/login");
-      }, 1000);
-    } else {
-      toast.error(`${result.message} Please try again.`);
-    }
-  }
+      if (result.success) {
+        setTimeout(() => {
+          toast.message(`Signup successful!`);
+          router.push("/login");
+        }, 1000);
+      } else {
+        toast.error(`${result.message} Please try again.`);
+      }
+    });
+  };
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-cover bg-center bg-accent">
@@ -58,10 +62,11 @@ export default function Register() {
               </div>
             </div>
             <Button
+              disabled={isPending}
               className="w-full place-items-center mt-6 hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               type="submit"
             >
-              Sign up
+              {isPending ? "Loading..." : "Sign up"}
             </Button>
           </form>
         </CardContent>
@@ -71,6 +76,7 @@ export default function Register() {
             <Link href="/login">
               <Button
                 variant="secondary"
+                disabled={isPending}
                 className="hover:bg-gray-300 transition-all duration-300"
               >
                 Sign in

@@ -14,21 +14,26 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { signInWithEmailPassword } from "@/lib/auth-actions";
 import { toast } from "sonner";
+import { useTransition } from "react";
 
 export default function Login() {
-  async function handleSignIn(formData: FormData) {
-    try {
-      await signInWithEmailPassword(formData);
-    } catch (error) {
-      if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
-        if (error.message === "User does not exist.") {
-          toast.error(`${error.message} Please try again.`);
-        } else {
-          toast.error(`Invalid password. Please try again.`);
+  const [isPending, startTransition] = useTransition();
+
+  const handleSignIn = async (formData: FormData) => {
+    startTransition(async () => {
+      try {
+        await signInWithEmailPassword(formData);
+      } catch (error) {
+        if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
+          if (error.message === "User does not exist.") {
+            toast.error(`${error.message} Please try again.`);
+          } else {
+            toast.error(`Invalid password. Please try again.`);
+          }
         }
       }
-    }
-  }
+    });
+  };
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-accent">
@@ -58,10 +63,11 @@ export default function Login() {
               </div>
             </div>
             <Button
+              disabled={isPending}
               className="w-full place-items-center mt-6 hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               type="submit"
             >
-              Sign in
+              {isPending ? "Loading..." : "Sign in"}
             </Button>
           </form>
         </CardContent>
@@ -70,6 +76,7 @@ export default function Login() {
             <Label>Don&apos;t have an account?</Label>
             <Link href="/signup">
               <Button
+                disabled={isPending}
                 variant="secondary"
                 className="hover:bg-gray-300 transition-all duration-300"
               >
