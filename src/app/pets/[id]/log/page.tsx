@@ -215,6 +215,8 @@ export default function PetTimelinePage() {
             : [{ date: new Date(logDate), logs: [newLog] }, ...prev];
         });
 
+        // close the dialog
+        setActiveDay(null);
         toast.message("Log added!");
       } else {
         toast.error("Failed to add log. Please try again.");
@@ -379,16 +381,31 @@ export default function PetTimelinePage() {
                             <div className="flex items-center justify-between">
                               <h3 className="text-lg font-medium">{dateStr}</h3>
                               <Button
-                                disabled={editDay !== null}
+                                disabled={editDay !== null || isActive === true}
                                 variant="ghost"
                                 size="sm"
                                 onClick={() =>
                                   setActiveDay(isActive ? null : day.date)
                                 }
                               >
-                                {isActive ? "Close" : "Add Log"}
+                                Add Log
                               </Button>
                             </div>
+
+                            {isActive && (
+                              <div className="mt-3">
+                                <AddLog
+                                  date={day.date}
+                                  petId={pet?.id || ""}
+                                  onAddLog={(date, log, tag) =>
+                                    handleAddLog(date, log, tag)
+                                  }
+                                  onClose={() => {
+                                    setActiveDay(isActive ? null : day.date);
+                                  }}
+                                />
+                              </div>
+                            )}
 
                             {day.logs.length > 0 && (
                               <div className="mt-3 space-y-3">
@@ -435,18 +452,6 @@ export default function PetTimelinePage() {
                                     />
                                   );
                                 })}
-                              </div>
-                            )}
-
-                            {isActive && (
-                              <div className="mt-3">
-                                <AddLog
-                                  date={day.date}
-                                  petId={pet?.id || ""}
-                                  onAddLog={(date, log, tag) =>
-                                    handleAddLog(date, log, tag)
-                                  }
-                                />
                               </div>
                             )}
                           </div>

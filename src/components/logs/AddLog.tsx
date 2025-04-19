@@ -20,9 +20,15 @@ interface AddLogProps {
     tag: string,
     petId: string
   ) => Promise<void>;
+  onClose: () => void;
 }
 
-export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
+export default function AddLog({
+  date,
+  petId,
+  onAddLog,
+  onClose,
+}: AddLogProps) {
   const [logContent, setLogContent] = useState("");
   const [tag, setTag] = useState<Tag>("other");
 
@@ -93,6 +99,14 @@ export default function AddLog({ date, petId, onAddLog }: AddLogProps) {
             >
               <Send className="mr-2 h-4 w-4" />
               Add Log
+            </Button>
+            <Button
+              className="ml-5 text-base hover:bg-gray-300 transition-all duration-300"
+              variant="secondary"
+              size="sm"
+              onClick={onClose}
+            >
+              Close
             </Button>
           </div>
         </div>
