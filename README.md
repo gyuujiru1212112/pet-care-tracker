@@ -106,16 +106,15 @@ All the pages are responsive design. You can check more images under the **asset
     Clicking on the **Pencil** button on the profile card will redirect you to a pet form page filled with the selected pet information.
     ![pet-edit-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-edit-button.png)
     ![edit-pet-big](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/edit-pet-big.png)
-    - Delete pet: Clicking on the **Trash Bin** button on the profile card will prompt an alert dialogue asking you to confirm whether you want to delete the pet. If yes, the pet profile and its logs will be deleted permanently. If not, nothing will be changed.
-    ![pet-delete-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-delete-button.png)
-  ![delete-pet-alert](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/delete-pet-alert.png)
+  - Delete pet: Clicking on the **Trash Bin** button on the profile card will prompt an alert dialogue asking you to confirm whether you want to delete the pet. If yes, the pet profile and its logs will be deleted permanently. If not, nothing will be changed.
+  ![pet-delete-button](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/pet-delete-button.png)
+![delete-pet-alert](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/delete-pet-alert.png)
   - Pet form:
   You can enter or edit the basic information for pets and upload a profile image in a modal.
-    - File handling (image upload)
-      - File not chosen
-      ![upload-modal](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/profileimageUpload.png)
-       - File chosen; an image preview is avaiable.
-      ![upload-preview](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/image-preview-after-select-file.png)
+    - File not chosen
+    ![upload-modal](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/profileimageUpload.png)
+     - File chosen; an image preview is avaiable.
+    ![upload-preview](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/image-preview-after-select-file.png)
 
 - **Log screen**: `baseURL/pets/[id]/log`
 
