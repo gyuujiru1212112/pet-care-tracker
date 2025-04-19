@@ -1,9 +1,7 @@
 import Headerbar from "@/components/Headerbar";
-import LoadingMessage from "@/components/LoadingMessage";
 import PetList from "@/components/pets/PetList";
 import { auth } from "@/lib/auth";
 import { unauthorized } from "next/navigation";
-import { Suspense } from "react";
 
 export default async function Dashboard() {
   const session = await auth();
@@ -17,9 +15,8 @@ export default async function Dashboard() {
         <div>
           <div className="w-full p-10">
             {/* Grid of pet cards */}
-            <Suspense fallback={<LoadingMessage message="Loading pets" />}>
-              <PetList userId={session.user.id} />
-            </Suspense>
+
+            <PetList userId={session.user.id} />
           </div>
         </div>
       </section>

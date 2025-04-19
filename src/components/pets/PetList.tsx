@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import LoadingError from "@/components/LoadingError";
 import { toast } from "sonner";
+import LoadingMessage from "../LoadingMessage";
 
 interface PetListProps {
   userId: string;
@@ -17,6 +18,7 @@ interface PetListProps {
 export default function PetList({ userId }: PetListProps) {
   const [pets, setPets] = useState<Pet[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = async (petId: string) => {
     try {
@@ -33,12 +35,15 @@ export default function PetList({ userId }: PetListProps) {
 
   useEffect(() => {
     async function fetchPets() {
+      setIsLoading(true);
       const res = await getPets(userId);
       if (res.error) {
         setError(res.error);
       } else {
         setPets(res.pets);
       }
+
+      setIsLoading(false);
     }
 
     fetchPets();
@@ -50,11 +55,11 @@ export default function PetList({ userId }: PetListProps) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {isLoading && <LoadingMessage message="Loading pets..." />}
       {pets.length > 0 &&
         pets.map((pet) => (
           <PetProfileCard pet={pet} key={pet.id} onDeletePet={handleDelete} />
         ))}
-
       {/* Add Pet Card */}
       <div className="h-full">
         <Link
