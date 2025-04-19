@@ -54,7 +54,7 @@ export default function PetProfileCard({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 bg-background"
+            className="h-8 w-8 bg-background hover:bg-gray-300"
             onClick={handleEdit}
           >
             <Pencil className="h-4 w-4" />

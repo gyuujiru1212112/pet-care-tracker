@@ -4,13 +4,14 @@ import PetForm from "@/components/pets/PetForm";
 import PetProfileHeaderbar from "@/components/pets/PetProfileHeadBar";
 import { editPet } from "@/lib/pet-actions";
 import { useParams, useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 export default function EditPet() {
   const [pet, setPet] = useState(null);
   const router = useRouter();
   const { id } = useParams();
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const idStr = id as string;
@@ -32,19 +33,21 @@ export default function EditPet() {
   }, [id]);
 
   const handleAction = async (formData: FormData) => {
-    try {
-      const idStr = id as string;
-      if (idStr) {
-        await editPet(formData, idStr);
-        // Set success message and redirect to "/dashboard"
-        toast.message("Pet edited successfully");
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 1000);
+    startTransition(async () => {
+      try {
+        const idStr = id as string;
+        if (idStr) {
+          await editPet(formData, idStr);
+          // Set success message and redirect to "/dashboard"
+          toast.message("Pet edited successfully");
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 1000);
+        }
+      } catch {
+        toast.error("Error editing pet.");
       }
-    } catch {
-      toast.error("Error editing pet.");
-    }
+    });
   };
 
   return (
@@ -56,7 +59,12 @@ export default function EditPet() {
         ) : (
           <>
             {/* Pet form */}
-            <PetForm title="Edit Pet" action={handleAction} pet={pet} />
+            <PetForm
+              title="Edit Pet"
+              action={handleAction}
+              pet={pet}
+              isPending={isPending}
+            />
           </>
         )}
       </Suspense>

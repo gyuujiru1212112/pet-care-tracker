@@ -19,9 +19,15 @@ interface PetFormProps {
   title: string;
   pet: Pet | null;
   action: (formData: FormData) => void;
+  isPending: boolean;
 }
 
-export default function PetForm({ title, action, pet }: PetFormProps) {
+export default function PetForm({
+  title,
+  action,
+  pet,
+  isPending,
+}: PetFormProps) {
   const [birthDate, setBirthDate] = useState<Date>(
     pet?.birthDate ? new Date(pet.birthDate) : new Date()
   );
@@ -101,13 +107,19 @@ export default function PetForm({ title, action, pet }: PetFormProps) {
                 <Button
                   className="w-full sm:w-36 py-3 text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
                   type="submit"
+                  disabled={isPending}
                 >
-                  {title === "Add Pet" ? "Add" : "OK"}
+                  {isPending
+                    ? "Loading..."
+                    : title === "Add Pet"
+                    ? "Add"
+                    : "OK"}
                 </Button>
                 <Link href="/dashboard" className="w-full sm:w-36">
                   <Button
                     variant="secondary"
                     className="w-full py-3 text-base hover:bg-gray-300 transition-all duration-300"
+                    disabled={isPending}
                   >
                     Cancel
                   </Button>
