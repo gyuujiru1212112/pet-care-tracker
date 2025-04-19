@@ -120,13 +120,17 @@ All the pages are responsive design. You can check more images under the **asset
 
   Clicking on a particular pet profile card ("Tap to View" is a hint for mobile users to tap; For desktop users, you should notice a hover effect) will redirect to the log page of the selected pet. The log page will default display logs for the past 7 days, including today. Scroll up or down to see all of them.
   ![log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/logpage.png)
-  - Add log: Click on the **Add Log** button beside a date to open a log form under that date. Click on **Cancel** to close the log form without making changes. Enter any input, select a specific tag related to your log and click **Add Log** to add a new log. The successfully added log will be shown immediately afterwards.
+  - Add log:
+  Click on the **Add Log** button beside a date to open a log form under that date. Click on **Cancel** to close the log form without making changes. Enter any input, select a specific tag related to your log and click **Add Log** to add a new log. The successfully added log will be shown immediately afterwards.
   ![add-log](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/add-log-form.png)
-  - Edit log: Similarly, click on the **Pencil** button on the top right corner of an existing log to change it to a log form. Click on **Cancel** to close the log form without making changes. Click **Edit Log** to edit the log. The successfully edited log will be updated immediately afterwards.
+  - Edit log:
+  Similarly, click on the **Pencil** button on the top right corner of an existing log to change it to a log form. Click on **Cancel** to close the log form without making changes. Click **Edit Log** to edit the log. The successfully edited log will be updated immediately afterwards.
   ![edit-log](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/edit-log-form.png)
-  - Delete log: Clicking on the **Trash Bin** button on the top right corner of an existing log will prompt an alert dialogue asking you to confirm whether you want to delete the log. If yes, the log will be deleted permanently. If not, nothing will be changed.
+  - Delete log:
+  Clicking on the **Trash Bin** button on the top right corner of an existing log will prompt an alert dialogue asking you to confirm whether you want to delete the log. If yes, the log will be deleted permanently. If not, nothing will be changed.
   ![delete-log](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/delete-log-alert.png)
-  - Load Earlier Date: Click on the **Load Earlier Dates** button to view logs from two additional earlier days. The loaded logs are not preserved after reloading.
+  - Load Earlier Date:
+  Click on the **Load Earlier Dates** button to view logs from two additional earlier days. The loaded logs are not preserved after reloading.
   - Switch pets:
     - Desktop: There is a sidebar on the left side of the page for users to switch pets. The icon on the top is the currently selected pet. Click on one of the pet icons below **Select a pet to switch** to switch to the log page of the chosen pet.
     ![pet-selection-log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/petselection.png)
