@@ -4,6 +4,7 @@ import PetIcon from "@/components/pets/PetIcon";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import LoadingError from "@/components/LoadingError";
+import { toast } from "sonner";
 
 interface PetsSectionProps {
   selectedPet: Pet | null;
@@ -15,7 +16,8 @@ export default function PetSelection({ pets, selectedPet }: PetsSectionProps) {
 
   function handleSelection(petId: string) {
     console.log("Push to pet", petId);
-    router.push(`/pets/${petId}`);
+    router.push(`/pets/${petId}/log`);
+    toast.message("Loading...", { duration: 2000 });
   }
 
   return (

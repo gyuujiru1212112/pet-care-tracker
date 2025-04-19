@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import LoadingError from "@/components/LoadingError";
+import { toast } from "sonner";
 
 interface PetListProps {
   userId: string;
@@ -56,7 +57,13 @@ export default function PetList({ userId }: PetListProps) {
 
       {/* Add Pet Card */}
       <div className="h-full">
-        <Link href="/pets/new" className="block h-full">
+        <Link
+          href="/pets/new"
+          className="block h-full"
+          onClick={() =>
+            toast.message("Loading pet form...", { duration: 2000 })
+          }
+        >
           <Card className="flex items-center justify-center cursor-pointer hover:bg-muted rounded-lg min-h-[273px] ">
             <CardContent className="flex flex-col items-center justify-center p-6 h-full">
               <Plus className="w-6 h-6 text-muted-foreground" />

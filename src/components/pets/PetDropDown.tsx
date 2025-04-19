@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import LoadingError from "@/components/LoadingError";
+import { toast } from "sonner";
 
 interface PetDropDownProps {
   selectedPet: Pet | null;
@@ -19,7 +20,8 @@ export default function PetDropDown({ pets, selectedPet }: PetDropDownProps) {
 
   function handleSelection(petId: string) {
     console.log("Push to pet", petId);
-    router.push(`/pets/${petId}`);
+    router.push(`/pets/${petId}/log`);
+    toast.message("Loading...", { duration: 2000 });
   }
 
   return (

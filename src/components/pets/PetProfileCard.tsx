@@ -43,6 +43,7 @@ export default function PetProfileCard({
 
   function handleEdit(): void {
     router.push(`/pets/${pet.id}/edit`);
+    toast.message("Loading pet form...", { duration: 2000 });
   }
 
   return (
@@ -95,7 +96,11 @@ export default function PetProfileCard({
         </div>
       </div>
 
-      <Link href={`/pets/${pet.id}/log`} className="block transition-all">
+      <Link
+        href={`/pets/${pet.id}/log`}
+        className="block transition-all"
+        onClick={() => toast.message("Loading...", { duration: 2000 })}
+      >
         <Card className="relative min-h-[250px] transition-all hover:shadow-md hover:-translate-y-1">
           <CardContent className="flex flex-col items-center p-4">
             <img
