@@ -136,11 +136,16 @@ All the pages are responsive design. You can check more images under the **asset
   
     Click on the **Load Earlier Dates** button to view logs from two additional earlier days. The loaded logs are not preserved after reloading.
   - Switch pets:
-    - Desktop: There is a sidebar on the left side of the page for users to switch pets. The icon on the top is the currently selected pet. Click on one of the pet icons below **Select a pet to switch** to switch to the log page of the chosen pet.
-    ![pet-selection-log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/petselection.png)
+    - Desktop:
+  
+      There is a sidebar on the left side of the page for users to switch pets. The icon on the top is the currently selected pet. Click on one of the pet icons below **Select a pet to switch** to switch to the log page of the chosen pet.
+      
+      ![pet-selection-log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/petselection.png)
 
-    - Mobile or smaller screen: Instead of a sidebar, a drop-down menu below the selected pet icon allows users to switch pets. Click on one of the pet names in the drop-down menu to switch to the chosen pet's log page.
-    ![pet-dropdown-log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/petdropdown.png)
+    - Mobile or smaller screen:
+  
+      Instead of a sidebar, a drop-down menu below the selected pet icon allows users to switch pets. Click on one of the pet names in the drop-down menu to switch to the chosen pet's log page.
+      ![pet-dropdown-log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/petdropdown.png)
 
 
 ### Development Guide:
