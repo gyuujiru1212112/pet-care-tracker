@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -14,6 +14,7 @@ export default function UploadModal({
 }: UploadModalProps) {
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     if (!isOpen) {
@@ -31,32 +32,34 @@ export default function UploadModal({
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!file) {
-      setMessage("Please select a file");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        throw new Error("Upload failed");
+    startTransition(async () => {
+      e.preventDefault();
+      if (!file) {
+        setMessage("Please select a file");
+        return;
       }
 
-      const data = await res.json();
-      onUpload(data.url);
-      onClose();
-    } catch (err) {
-      setMessage("Failed to upload file");
-      console.error(err);
-    }
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          throw new Error("Upload failed");
+        }
+
+        const data = await res.json();
+        onUpload(data.url);
+        onClose();
+      } catch (err) {
+        setMessage("Failed to upload file");
+        console.error(err);
+      }
+    });
   };
 
   if (!isOpen) return null;
@@ -101,10 +104,11 @@ export default function UploadModal({
               Cancel
             </button>
             <button
+              disabled={isPending}
               type="submit"
               className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
             >
-              Upload
+              {isPending ? "Uploading..." : "Upload"}
             </button>
           </div>
         </form>
