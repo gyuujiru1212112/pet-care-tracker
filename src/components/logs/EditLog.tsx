@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Tag, Tags } from "@/constants/tags";
 import { Log } from "@prisma/client";
 import { toast } from "sonner";
@@ -27,6 +27,7 @@ interface EditLogProps {
 export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
   const [logContent, setLogContent] = useState(log.description);
   const [tag, setTag] = useState<Tag>(log.tag as Tag);
+  const [isPending, startTransition] = useTransition();
 
   const handleClose = () => {
     try {
@@ -37,19 +38,25 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
   };
 
   const handleAction = async () => {
-    try {
-      // time matters
-      const currentDate = new Date(log.date);
-      const now = new Date();
-      currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
+    startTransition(async () => {
+      try {
+        // time matters
+        const currentDate = new Date(log.date);
+        const now = new Date();
+        currentDate.setHours(
+          now.getHours(),
+          now.getMinutes(),
+          now.getSeconds()
+        );
 
-      await onEditLog(currentDate, log.id, logContent, tag, log.petId);
-    } catch {
-      toast.error("Failed to edit. Please try again.");
-    } finally {
-      setLogContent("");
-      setTag("other");
-    }
+        await onEditLog(currentDate, log.id, logContent, tag, log.petId);
+      } catch {
+        toast.error("Failed to edit. Please try again.");
+      } finally {
+        setLogContent("");
+        setTag("other");
+      }
+    });
   };
 
   return (
@@ -99,10 +106,10 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
               className="text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               size="sm"
               onClick={handleAction}
-              disabled={!logContent.trim()}
+              disabled={!logContent.trim() || isPending}
             >
               <Send className="mr-2 h-4 w-4" />
-              Edit
+              {isPending ? "Editing..." : "Edit Log"}
             </Button>
             <Button
               className="ml-5 text-base hover:bg-gray-300 transition-all duration-300"

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Tag, Tags } from "@/constants/tags";
 import { toast } from "sonner";
+import { useTransition } from "react";
 
 interface AddLogProps {
   date: Date;
@@ -31,21 +32,28 @@ export default function AddLog({
 }: AddLogProps) {
   const [logContent, setLogContent] = useState("");
   const [tag, setTag] = useState<Tag>("other");
+  const [isPending, startTransition] = useTransition();
 
   const handleAction = async () => {
-    try {
-      // time matters
-      const currentDate = new Date(date);
-      const now = new Date();
-      currentDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
+    startTransition(async () => {
+      try {
+        // time matters
+        const currentDate = new Date(date);
+        const now = new Date();
+        currentDate.setHours(
+          now.getHours(),
+          now.getMinutes(),
+          now.getSeconds()
+        );
 
-      await onAddLog(currentDate, logContent, tag, petId);
-    } catch {
-      toast.error("Failed to add. Please try again.");
-    } finally {
-      setLogContent("");
-      setTag("other");
-    }
+        await onAddLog(currentDate, logContent, tag, petId);
+      } catch {
+        toast.error("Failed to add. Please try again.");
+      } finally {
+        setLogContent("");
+        setTag("other");
+      }
+    });
   };
 
   return (
@@ -95,10 +103,10 @@ export default function AddLog({
               className="text-base hover:bg-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out"
               size="sm"
               onClick={handleAction}
-              disabled={!logContent.trim()}
+              disabled={!logContent.trim() || isPending}
             >
               <Send className="mr-2 h-4 w-4" />
-              Add Log
+              {isPending ? "Adding..." : "Add Log"}
             </Button>
             <Button
               className="ml-5 text-base hover:bg-gray-300 transition-all duration-300"
