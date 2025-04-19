@@ -108,7 +108,7 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
               size="sm"
               onClick={handleClose}
             >
-              Close
+              Cancel
             </Button>
           </div>
         </div>

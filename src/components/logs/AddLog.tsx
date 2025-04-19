@@ -105,7 +105,7 @@ export default function AddLog({
               size="sm"
               onClick={onClose}
             >
-              Close
+              Cancel
             </Button>
           </div>
         </div>
