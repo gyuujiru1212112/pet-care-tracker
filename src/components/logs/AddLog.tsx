@@ -37,16 +37,7 @@ export default function AddLog({
   const handleAction = async () => {
     startTransition(async () => {
       try {
-        // time matters
-        const currentDate = new Date(date);
-        const now = new Date();
-        currentDate.setHours(
-          now.getHours(),
-          now.getMinutes(),
-          now.getSeconds()
-        );
-
-        await onAddLog(currentDate, logContent, tag, petId);
+        await onAddLog(date, logContent, tag, petId);
       } catch {
         toast.error("Failed to add. Please try again.");
       } finally {

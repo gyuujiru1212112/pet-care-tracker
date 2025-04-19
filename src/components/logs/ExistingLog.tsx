@@ -59,7 +59,7 @@ export default function ExistingLog({
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <p className="text-xs text-muted-foreground">
-                {format(log.date, "HH:mm")}
+                {`Logged on ${format(log.updatedAt, "yyyy-MM-dd HH:mm")}`}
               </p>
               {/* Selected Tag */}
               <Badge

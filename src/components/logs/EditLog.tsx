@@ -40,16 +40,7 @@ export default function EditLog({ log, onEditLog, onCloseEdit }: EditLogProps) {
   const handleAction = async () => {
     startTransition(async () => {
       try {
-        // time matters
-        const currentDate = new Date(log.date);
-        const now = new Date();
-        currentDate.setHours(
-          now.getHours(),
-          now.getMinutes(),
-          now.getSeconds()
-        );
-
-        await onEditLog(currentDate, log.id, logContent, tag, log.petId);
+        await onEditLog(log.date, log.id, logContent, tag, log.petId);
       } catch {
         toast.error("Failed to edit. Please try again.");
       } finally {
