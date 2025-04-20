@@ -149,7 +149,7 @@ All the pages are responsive design. You can check more images under the **asset
 
 
 ### Development Guide:
-#### Deployed Version (Highly Recommended)
+#### Deployed Version:
 Access the live app at https://pet-log-gilt.vercel.app/. For more details about the platform, refer to the **Deployment** section.
 If your sign-up/sign-in is unsuccessful, here is a registered account for you to log in: email: yd_jing@hotmail.com, password: nichi121.
 
