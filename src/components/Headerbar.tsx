@@ -11,8 +11,8 @@ export default function Headerbar({ title }: HeaderbarProps) {
     <div className="fixed top-0 left-0 w-full px-4 sm:px-10 z-50 bg-white shadow-md opacity-90">
       <div className="flex items-center justify-between py-3">
         {/* Home Icon */}
-        <Link href="/dashboard" className="flex-shrink-0">
-          <Home className="h-5 w-5" />
+        <Link href="/dashboard" className="flex-shrink-0 ">
+          <Home className="h-5 w-5 hover:bg-gray-300" />
         </Link>
 
         {/* Title */}

@@ -28,7 +28,7 @@ export default function Login() {
           if (error.message === "User does not exist.") {
             toast.error(`${error.message} Please try again.`);
           } else {
-            toast.error(`Invalid password. Please try again.`);
+            toast.error(`Invalid email or credential. Please try again.`);
           }
         }
       }
