@@ -1,12 +1,7 @@
 # 🐾 Pet Care Tracker 🐾
 
-* Team member: Yiduo Jing [1000308142], yiduo.jing@mail.utoronto.ca
-
 ### Premise
 For the best experience, please use Google Chrome, as some browsers may not fully support Tailwind CSS and shadcn/ui components. I used emojis somewhere, and I assume most system fonts support them.
-
-### Video Demo
-See the video demo.mp4 located in the assets folder or go to the shared link [demo.mp4](https://drive.google.com/file/d/1NZlcwXaJVb-Wsj4p23hBZTV_h9Xup7Ci/view?usp=sharing).
 
 ### Motivation:
 As a cat owner and journaling enthusiast, I've struggled to find an app that combines pet care tracking with a personal journaling experience. Most apps focus on health records, lacking a simple way to document pet's daily routines, e.g. grooming, feeding, activities, etc. I want to create a timeline-style journal to easily log pet's routines and milestones while keeping it private and uncomplicated. This project merges my passions for journaling and pet care. The target users are pet owners who enjoy journaling and want a straightforward way to record their pet's daily moments in an organized format.
@@ -147,60 +142,6 @@ All the pages are responsive design. You can check more images under the **asset
       Instead of a sidebar, a drop-down menu below the selected pet icon allows users to switch pets. Click on one of the pet names in the drop-down menu to switch to the chosen pet's log page.
       ![pet-dropdown-log-page](https://raw.githubusercontent.com/gyuujiru1212112/pet-care-tracker/refs/heads/main/assets/petdropdown.png)
 
-
-### Development Guide:
-#### Deployed Version:
-Access the live app at https://pet-log-gilt.vercel.app/. For more details about the platform, refer to the **Deployment** section.
-If your sign-up/sign-in is unsuccessful, here is a registered account for you to log in: email: yd_jing@hotmail.com, password: nichi121.
-
-#### Local environment:
-- **Environment setup and configuration**:
-  - Run `npm install next` if it complains `sh: next: command not found`
-- **Database initialization**:
-  - The deployed version now uses a Supabase-hosted database. To keep local and production data separate, please use a local PostgreSQL instance when running the app in your local environment.
-  - For using a local PostgreSQL server, follow these steps:
-    1.	Start the PostgreSQL server on your local machine `brew services start postgresql` and create a PostgreSQL database `createdb db_name`.
-	  2.	Set the DATABASE_URL in your .env file to point to your local database as below:
-    - **Be sure to include the DIRECT_URL** as well in your configuration, even though it's intended for the remote database server, it's still required to be explicitly specified.
-      ```
-      DATABASE_URL="postgresql://[username]:[randompassword]@localhost:[port]/[db_name]?schema=public"
-      DIRECT_URL="postgresql://[username]:[randompassword]@localhost:[port]/[db_name]?schema=public"
-      ```
-	3.	Run `npx prisma generate`
-	4.	Run `npx prisma migrate dev --name init` to apply the initial migration and set up the database schema.
-- **Cloud storage configuration**:
-  Add the following lines to your **.env** file
-  ```
-  SPACES_KEY=DO801DYY3G28JPBAE49R
-  SPACES_SECRET=FFNnBzEGbNFzADs6IulEkOVvvHPJ/Jq85iljzG6i4/M
-  SPACES_REGION=nyc3
-  SPACES_BUCKET=pet-care-tracker-next-images
-  SPACES_ENDPOINT=https://nyc3.digitaloceanspaces.com
-  ```
-- **NextAuth configuration**:
-  Add the following lines to your **.env** or **.env.local** file (I tested both locations and they work, but the official documentation recommends using **.env.local**.)
-    ```
-    NEXTAUTH_SECRET="6Do2bnYc0vZu9jMxjfgnpDLDiik+IcbLJ980WG26cow="
-    NEXTAUTH_URL=http://localhost:3000
-    ```
-- **Local development**:
-  - Development build: Run `npm run dev` (**Only development mode is supported because NextAuth requires a trusted host.**)
-  - Open `http://localhost:3000` with your browser to view the homepage.
-
-
-
 ### Deployment Information (if applicable):
 - Live URL: https://pet-log-gilt.vercel.app/
-- Platform details: The app is deployed using [Vercel](https://vercel.com/), a cloud platform optimized for front-end frameworks and serverless functions. Vercel automatically builds and deploys the app directly from the connected Git repository. The environment variables used in production are mostly the same as the local setup, with the main difference being the database URL, which points to a Supabase-hosted PostgreSQL instance for the deployed version.
-  ```
-  # Connect to Supabase via connection pooling
-  DATABASE_URL="postgresql://postgres.tedtmmupdskppyxrafoj:PetCareTracker@aws-0-ca-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
-
-  # Direct connection to the database. Used for migrations
-  DIRECT_URL="postgresql://postgres.tedtmmupdskppyxrafoj:PetCareTracker@aws-0-ca-central-1.pooler.supabase.com:5432/postgres"
-  ```
- 
-### Individual Contributions:
-I completed this project independently. I handled all aspects, including design, development, and testing.
-### Lessons Learned and Concluding Remarks:
-This project has been beneficial in solidifying my knowledge of Next.js full-stack development, particularly with Server and Client components. However, I still find it challenging to work with client components that involve server actions. Sometimes, I get confused about the distinction between server and client in Next.js, which can be especially frustrating when using NextAuth. Additionally, I haven't made significant contributions to performance optimization. Front-end development, especially when adjusting Tailwind CSS, also remains a tough challenge for me. Moreover, I explored several ways to add a loading effect, but I felt it added too much overhead. Overall, I enjoyed this course and creating this project!
+- Platform details: The app is deployed using [Vercel](https://vercel.com/), a cloud platform optimized for front-end frameworks and serverless functions. Vercel automatically builds and deploys the app directly from the connected Git repository.

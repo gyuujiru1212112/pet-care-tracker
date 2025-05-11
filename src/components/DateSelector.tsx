@@ -43,7 +43,7 @@ export function DateSelector({ birthDate, setBirthDate }: DateSelectorProps) {
             <SelectValue placeholder="Year" />
           </SelectTrigger>
           <SelectContent>
-            {Array.from({ length: 30 }, (_, i) => currentYear - i).map((y) => (
+            {Array.from({ length: 40 }, (_, i) => currentYear - i).map((y) => (
               <SelectItem key={y} value={y.toString()}>
                 {y}
               </SelectItem>
